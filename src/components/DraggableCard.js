@@ -29,8 +29,6 @@ class DraggableCard extends React.Component{
       img: this.props.img,
       top: this.props.top,
       left: this.props.left,
-      shuffleX: this.props.shuffleX,
-      shuffleY: this.props.shuffleY,
       side: this.props.side,
       deltaX: null,
       deltaY: null,
@@ -78,12 +76,12 @@ class DraggableCard extends React.Component{
     })
   }
 
-  handleShuffle() {
+  handleRender() {
     this.setState({
       suit: this.props.suit,
       value: this.props.value,
-      top: this.props.shuffleY,
-      left: this.props.shuffleX,
+      top: this.props.top,
+      left: this.props.left,
       side: "back",
     })
   }

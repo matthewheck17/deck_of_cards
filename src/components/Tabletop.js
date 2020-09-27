@@ -14,14 +14,6 @@ import "../css/Tabletop.css";
 
 /* Help Message Object to pass as props */
 const help = {
-  solitaire: {
-    header: "Solitaire",
-    body: "The first objective is to release and play into position certain cards to build up each foundation, in sequence and in suit, from the ace through the king. The ultimate objective is to build the whole pack onto the foundations, and if that can be done, the Solitaire game is won."
-  },
-  pyramid: {
-    header: "Pyramid",
-    body: "The objective of Pyramid is to remove pairs of cards that add up to the total of the highest card in the deck from a pyramid arrangement of 28 cards. All cards (cards from the pyramid and cards from the stock) must be moved to the foundation. The pyramid is demolished by the end, if it stands you lose."
-  },
   freeMode: {
     header: "Free Mode",
     body: "Welcome to free mode - feel free to move the cards from the deck however you would like :)"
@@ -42,34 +34,15 @@ class Tabletop extends React.Component {
       dark: false,
       img: Prof1,
       helpText: help.freeMode,
-      layout: 'no layout chosen'
     };
   }
 
-  /* Update Card Layouts */
   loadFreeMode = () => {
     this.setState({
       mode: 'sandbox',
-      layout: 'free-mode',
       helpText: help.freeMode
     });
 }
-
-loadPyramid = () => {
-  this.setState({
-      mode: 'sandbox',
-      layout: 'pyramid',
-      helpText: help.pyramid
-    });
-  }
-
-loadSolitaire = () => {
-  this.setState({
-      mode: 'sandbox',
-      layout: 'solitaire',
-      helpText: help.solitaire
-    });
-  }
 
   goToCustomize = (e) => {
     this.setState({
@@ -94,16 +67,10 @@ loadSolitaire = () => {
     })
   }
 
-  goToLayoutMenu = () => {
-    this.setState({
-      mode: 'layout'
-    });
-  }
 
   goToSandboxMode = () => {
     this.setState({
       mode: 'sandbox',
-      layout: 'free-mode',
       helpText: help.freeMode
     });
   }
@@ -135,20 +102,33 @@ loadSolitaire = () => {
 
       {/* Main Menu */}
       {this.state.mode === "mainMenu" &&
-          <div className='main-menu'>
+          <div className='menu'>
             <p id="title">deck_of_cards</p>
             <p id="creators">By: Braden Batman, Chase Grainger, and Matthew Heck</p>
             <p><button className="button" onClick={this.goToGameMenu}>Play</button></p>
+            <p><button className="button" onClick={this.goToSandboxMode}>Sandbox Mode</button></p>
             <p><button className="button" onClick={this.goToCustomize}>Customize</button></p>
             <p><button className="button" onClick={this.goToAbout}>About</button></p>
           </div>
       }
 
       {/* Sandbox Mode */}
+      {this.state.mode === "choosingGame" &&
+          <div className='menu'>
+            <p id="title">Games</p>
+            <p><button className="button" onClick={this.goToWar}>War</button></p>
+            <p><button className="button">Solitaire</button></p>
+            <p><button className="button">Hearts</button></p>
+            <p><button className="button">Blackjack</button></p>
+            <p><button className="button" onClick={this.goToMainMenu}>Exit</button></p>
+          </div>
+      }
+
+      {/* Sandbox Mode */}
       {this.state.mode === "sandbox" &&
           <div id="table">
-            <GameButtons type="help" mode={"sandbox"} showing={this.state.showingHelpMessage} goToLayoutMenu={this.goToLayoutMenu} shuffle={this.shuffle} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
-            <SandboxDeck ref="sandboxDeck" img={this.state.img} layout={this.state.layout}/>
+            <GameButtons type="help" mode={"sandbox"} showing={this.state.showingHelpMessage} shuffle={this.shuffle} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
+            <SandboxDeck ref="sandboxDeck" img={this.state.img}/>
           </div>
       }
 
@@ -159,30 +139,7 @@ loadSolitaire = () => {
           </div>
       }
 
-      {/* Choose Game Mode */}
-      {this.state.mode === "choosingGame" &&
-      <div className="main-menu">
-        <p id="title">Choose A Game</p>
-        <div>
-          <p><button className="button" onClick={this.goToWar}>War</button></p>
-          <p><button className="button" onClick={this.goToSandboxMode}>Sandbox Mode</button></p>
-        </div>
-      </div>
-      }
-
-      {/* Choose Layout */}
-      {this.state.mode === "layout" &&
-      <div className="main-menu">
-        <p id="title">Choose A Premade Layout</p>
-        <div>
-          <p><button className="button" onClick={this.loadSolitaire} text={help.solitaire}>Solitaire</button></p>
-          <p><button className="button" onClick={this.loadPyramid} text={help.pyramid}>Pyramid</button></p>
-          <p><button className="button" onClick={this.loadFreeMode} text={help.freeMode}>Sandbox Mode</button></p>
-        </div>
-      </div>
-      }
-
-      {/* War Layout */}
+      {/* War Mode */}
       {this.state.mode === "war" &&
       <div id="war-table">
         <GameButtons type="help" mode={"game"} showing={this.state.showingHelpMessage} shuffle={this.resetWarDeck} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
@@ -190,13 +147,13 @@ loadSolitaire = () => {
       </div>
       }
 
-      {/* Choose Layout */}
+      {/* About */}
       {this.state.mode === "about" &&
       <div className="main-menu">
       <GameButtons type="help" mode={"menu"} goToMainMenu={this.goToMainMenu}/>
         <p id="title">About</p>
         <div>
-          <p id="text">This is a web application developed by Braden Batman, Chase Grainger, and Matthew Heck. You can play premade games, or play around with a deck of cards and premade card layouts in Sandbox mode.</p>
+          <p id="text">This is a web application developed by Braden Batman, Chase Grainger, and Matthew Heck. You can play premade games, or play around with a deck of cards in Sandbox mode.</p>
         </div>
       </div>
       }
