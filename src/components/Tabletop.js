@@ -104,8 +104,8 @@ class Tabletop extends React.Component {
       {this.state.mode === "mainMenu" &&
           <div className='menu'>
             <p id="title">deck_of_cards</p>
-            <p id="creators">By: Braden Batman, Chase Grainger, and Matthew Heck</p>
-            <p><button className="button" onClick={this.goToGameMenu}>Play</button></p>
+            <p id="creators">An Interactive Online Deck of Cards</p>
+            <p><button className="button" onClick={this.goToGameMenu}>Play a Game</button></p>
             <p><button className="button" onClick={this.goToSandboxMode}>Sandbox Mode</button></p>
             <p><button className="button" onClick={this.goToCustomize}>Customize</button></p>
             <p><button className="button" onClick={this.goToAbout}>About</button></p>
