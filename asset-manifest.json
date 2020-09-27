@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/deck_of_cards/static/css/main.b6f42d7b.chunk.css",
+    "main.js": "/deck_of_cards/static/js/main.6732af22.chunk.js",
+    "main.js.map": "/deck_of_cards/static/js/main.6732af22.chunk.js.map",
+    "runtime-main.js": "/deck_of_cards/static/js/runtime-main.fa3a3fb6.js",
+    "runtime-main.js.map": "/deck_of_cards/static/js/runtime-main.fa3a3fb6.js.map",
+    "static/js/2.cb4fef84.chunk.js": "/deck_of_cards/static/js/2.cb4fef84.chunk.js",
+    "static/js/2.cb4fef84.chunk.js.map": "/deck_of_cards/static/js/2.cb4fef84.chunk.js.map",
+    "index.html": "/deck_of_cards/index.html",
+    "precache-manifest.d96ccf121a62b552ed476ab5d1235a58.js": "/deck_of_cards/precache-manifest.d96ccf121a62b552ed476ab5d1235a58.js",
+    "service-worker.js": "/deck_of_cards/service-worker.js",
+    "static/css/main.b6f42d7b.chunk.css.map": "/deck_of_cards/static/css/main.b6f42d7b.chunk.css.map",
+    "static/js/2.cb4fef84.chunk.js.LICENSE.txt": "/deck_of_cards/static/js/2.cb4fef84.chunk.js.LICENSE.txt",
+    "static/media/flavortown.PNG": "/deck_of_cards/static/media/flavortown.514b6d40.PNG",
+    "static/media/nick_cage.PNG": "/deck_of_cards/static/media/nick_cage.040c854a.PNG",
+    "static/media/prof1.JPG": "/deck_of_cards/static/media/prof1.9a7fda11.JPG",
+    "static/media/prof2.PNG": "/deck_of_cards/static/media/prof2.120a9474.PNG",
+    "static/media/prof3.JPG": "/deck_of_cards/static/media/prof3.79d6ce7b.JPG",
+    "static/media/squid.PNG": "/deck_of_cards/static/media/squid.74e4147c.PNG",
+    "static/media/the_guy.PNG": "/deck_of_cards/static/media/the_guy.103694f0.PNG",
+    "static/media/tim.PNG": "/deck_of_cards/static/media/tim.1b002074.PNG"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fa3a3fb6.js",
+    "static/js/2.cb4fef84.chunk.js",
+    "static/css/main.b6f42d7b.chunk.css",
+    "static/js/main.6732af22.chunk.js"
+  ]
+}
