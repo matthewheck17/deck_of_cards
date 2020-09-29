@@ -1,5 +1,6 @@
 US 1.1
-As a user I want to click on Play -> Test Game and see a screen with a deck of cards.
+As a user I want to click on Play -> Hearts and see a screen with a deck of cards.
 
 US 1.2
-As a user I want to be able to be dealt a hand in the Test Game.
+As a user I want to push a button that says "Deal" and be able to be deal a hand of
+cards for each player in the Hearts Game.
