@@ -9,6 +9,7 @@ import Prof1 from "../images/backs/prof1.JPG"
 import GameButtons from "./GameButtons.js";
 import SandboxDeck from "./SandboxDeck.js";
 import WarDeck from "./WarDeck.js";
+import HeartsTable from "./HeartsTable.js";
 import Customize from "./Customize.js"
 import "../css/Tabletop.css";
 
@@ -21,6 +22,10 @@ const help = {
   war: {
     header: "War",
     body: "This is the game of War. The goal is to flip cards and when the value of your card is higher than your opponent, you win."
+  },
+  hearts: {
+    header: "Hearts",
+    body: "This is the game of Hearts. The goal is to avoid winning tricks that contain hearts and the queen of spades."
   }
 };
 
@@ -88,6 +93,13 @@ class Tabletop extends React.Component {
     })
   }
 
+  goToHearts = () => {
+    this.setState({
+      mode: 'hearts',
+      helpText: help.hearts
+    })
+  }
+
   goToAbout = () => {
     this.setState({
       mode: 'about'
@@ -117,7 +129,7 @@ class Tabletop extends React.Component {
           <div className='menu'>
             <p id="title">Games</p>
             <p><button className="button" onClick={this.goToWar}>War</button></p>
-            <p><button className="button">Test Game</button></p>
+            <p><button className="button" onClick={this.goToHearts}>Hearts</button></p>
             <p><button className="button" onClick={this.goToMainMenu}>Exit</button></p>
           </div>
       }
@@ -142,6 +154,14 @@ class Tabletop extends React.Component {
       <div id="war-table">
         <GameButtons type="help" mode={"game"} showing={this.state.showingHelpMessage} shuffle={this.resetWarDeck} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
         <WarDeck ref="warDeck" img={this.state.img}/>
+      </div>
+      }
+
+      {/* War Mode */}
+      {this.state.mode === "hearts" &&
+      <div id="hearts-table">
+        <GameButtons type="help" mode={"game"} showing={this.state.showingHelpMessage} shuffle={this.resetWarDeck} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
+        <HeartsTable ref="heartsTable" img={this.state.img}/>
       </div>
       }
 

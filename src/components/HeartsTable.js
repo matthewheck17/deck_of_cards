@@ -1,0 +1,73 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessart items for the HeartsTable Component
+
+// Created in US 1.1
+
+// SYSTEM IMPORTS
+import React from "react";
+
+// CUSTOM IMPORTS
+import GameCard from "./GameCard.js";
+import "../css/WarDeck.css";
+
+class HeartsTable extends React.Component {
+
+  constructor(props) {
+    super(props)
+    var allCards = [
+      ["club","A"],["club","2"],["club","3"],["club","4"],["club","5"],["club","6"],["club","7"],["club","8"],["club","9"],["club","10"],["club","Jack"],["club","Queen"],["club","King"],
+      ["diamond","A"],["diamond","2"],["diamond","3"],["diamond","4"],["diamond","5"],["diamond","6"],["diamond","7"],["diamond","8"],["diamond","9"],["diamond","10"],["diamond","Jack"],["diamond","Queen"],["diamond","King"],
+      ["spade","A"],["spade","2"],["spade","3"],["spade","4"],["spade","5"],["spade","6"],["spade","7"],["spade","8"],["spade","9"],["spade","10"],["spade","Jack"],["spade","Queen"],["spade","King"],
+      ["heart","A"],["heart","2"],["heart","3"],["heart","4"],["heart","5"],["heart","6"],["heart","7"],["heart","8"],["heart","9"],["heart","10"],["heart","Jack"],["heart","Queen"],["heart","King"]
+    ];
+    var hand1 = [];
+    var hand2 = [];
+    var hand3 = [];
+    var hand4 = [];
+    var handSize = 13;
+
+    for(var index = 0; index < handSize; index++){
+      var rand = Math.floor(Math.random() * (allCards.length));
+      hand1.push(allCards[rand]);
+      allCards.splice(rand, 1);
+      rand = Math.floor(Math.random() * (allCards.length));
+      hand2.push(allCards[rand]);
+      allCards.splice(rand, 1);
+      rand = Math.floor(Math.random() * (allCards.length));
+      hand3.push(allCards[rand]);
+      allCards.splice(rand, 1);
+      rand = Math.floor(Math.random() * (allCards.length));
+      hand4.push(allCards[rand]);
+      allCards.splice(rand, 1);
+    }
+
+    console.log(hand1);
+
+    console.log(hand2);
+
+    console.log(hand3);
+
+    console.log(hand4);
+
+    this.state = {
+      hand1: hand1,
+      hand2: hand2,
+      hand3: hand3,
+      hand4: hand4,
+      img: this.props.img,
+      tieDeck: []
+    }
+  }
+
+
+
+  render() {
+    return (
+      <div id='game-container'>
+      </div>
+    );
+  }
+}
+
+export default HeartsTable;
