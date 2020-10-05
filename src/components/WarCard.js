@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/PlayingCard.css";
-import "../css/GameCard.css";
 
 // import red corner suit icons
 import RedDiamondCorner from "../images/red-corners/diamond.png";
@@ -19,7 +18,7 @@ import BlackClubLarge from "../images/black-large/club.png";
 import BlackSpadeLarge from "../images/black-large/spade.png";
 
 
-class GameCard extends React.Component{
+class WarCard extends React.Component{
 
   constructor(props) {
     super(props);
@@ -28,7 +27,6 @@ class GameCard extends React.Component{
       value: this.props.value,
       img: this.props.img,
       side: this.props.side,
-      location: this.props.location,   //location will be used as the classname in order to set the location of the card in css
     };
   }
 
@@ -133,12 +131,12 @@ class GameCard extends React.Component{
     return (
       <div  >
       {this.state.side === "back" &&
-        <div className={this.state.location} id="back-of-card">
+        <div className='game-card' id="back-of-card">
           <img alt="card back" src={this.props.img} draggable={false} id="back-image"/>
         </div>
       }
       {this.state.side === "front" &&
-        <div className={this.state.location} draggable={false} id="playing-card">
+        <div className='game-card' draggable={false} id="playing-card">
           {topLeftSuit}
           {bottomRightSuit}
           {topLeftValue}
@@ -151,4 +149,4 @@ class GameCard extends React.Component{
   }
 }
 
-export default GameCard;
+export default WarCard;

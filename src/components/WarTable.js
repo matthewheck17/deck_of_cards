@@ -2,10 +2,10 @@
 import React from "react";
 
 // CUSTOM IMPORTS
-import GameCard from "./GameCard.js";
-import "../css/WarDeck.css";
+import WarCard from "./WarCard.js";
+import "../css/WarTable.css";
 
-class WarDeck extends React.Component {
+class WarTable extends React.Component {
 
   constructor(props) {
     super(props)
@@ -23,7 +23,6 @@ class WarDeck extends React.Component {
       deck1.push(allCards[rand]);
       allCards.splice(rand, 1);
     }
-    console.log(allCards);
 
     while(allCards.length !== 0){
       rand = Math.floor(Math.random() * (allCards.length));
@@ -150,11 +149,11 @@ class WarDeck extends React.Component {
 
   render() {
     return (
-      <div id='game-container'>
+      <div id='war-game-container'>
       <div id='player-side'>
         <div id='player-deck-holder'>
           <div id='player-deck'>
-            <GameCard className='card' ref='card1' key='1' suit={this.state.deck1[0][0]} value={this.state.deck1[0][1]} img={this.state.img} side='back'/>
+            <WarCard className='card' ref='card1' key='1' suit={this.state.deck1[0][0]} value={this.state.deck1[0][1]} img={this.state.img} side='back'/>
           </div>
         </div>
         <p><button className="war-button" onClick={this.handleFlip}>Flip</button></p>
@@ -165,19 +164,19 @@ class WarDeck extends React.Component {
         <p id='winner'>{this.state.winMessage}</p> <div id="cardzone">
         <div id='player-warzone'>
           <div id='player-war-card'>
-            <GameCard className='card' ref='playerWarzoneCard' key='3' suit={this.state.deck1[this.state.deck1.length-1][0]} value={this.state.deck1[this.state.deck1.length-1][1]} img={this.state.img}/>
+            <WarCard className='card' ref='playerWarzoneCard' key='3' suit={this.state.deck1[this.state.deck1.length-1][0]} value={this.state.deck1[this.state.deck1.length-1][1]} img={this.state.img}/>
           </div>
         </div>
         <div id='opponent-warzone'>
           <div id='opponent-war-card'>
-            <GameCard className='card' ref='opponentWarzoneCard' key='4' suit={this.state.deck2[this.state.deck2.length-1][0]} value={this.state.deck2[this.state.deck2.length-1][1]} img={this.state.img}/>
+            <WarCard className='card' ref='opponentWarzoneCard' key='4' suit={this.state.deck2[this.state.deck2.length-1][0]} value={this.state.deck2[this.state.deck2.length-1][1]} img={this.state.img}/>
           </div>
         </div> </div>
       </div>
         <div id='opponent-side'>
           <div id='opponent-deck-holder'>
             <div id='opponent-deck'>
-              <GameCard className='card' ref='card2' key='2' suit={this.state.deck2[0][0]} value={this.state.deck2[0][1]} img={this.state.img} side='back'/>
+              <WarCard className='card' ref='card2' key='2' suit={this.state.deck2[0][0]} value={this.state.deck2[0][1]} img={this.state.img} side='back'/>
             </div>
           </div>
           <div className="card-counter" id='opponent-card-counter'>Total Cards: {this.state.deck2.length}</div>
@@ -187,4 +186,4 @@ class WarDeck extends React.Component {
   }
 }
 
-export default WarDeck;
+export default WarTable;

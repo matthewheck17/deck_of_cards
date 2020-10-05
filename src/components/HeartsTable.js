@@ -9,7 +9,8 @@ import React from "react";
 
 // CUSTOM IMPORTS
 import GameCard from "./GameCard.js";
-import "../css/WarDeck.css";
+import "../css/HeartsTable.css";
+import HeartsLogo from "../images/hearts/hearts-logo.png";
 
 class HeartsTable extends React.Component {
 
@@ -21,6 +22,7 @@ class HeartsTable extends React.Component {
       ["spade","A"],["spade","2"],["spade","3"],["spade","4"],["spade","5"],["spade","6"],["spade","7"],["spade","8"],["spade","9"],["spade","10"],["spade","Jack"],["spade","Queen"],["spade","King"],
       ["heart","A"],["heart","2"],["heart","3"],["heart","4"],["heart","5"],["heart","6"],["heart","7"],["heart","8"],["heart","9"],["heart","10"],["heart","Jack"],["heart","Queen"],["heart","King"]
     ];
+
     var hand1 = [];
     var hand2 = [];
     var hand3 = [];
@@ -42,22 +44,44 @@ class HeartsTable extends React.Component {
       allCards.splice(rand, 1);
     }
 
-    console.log(hand1);
-
-    console.log(hand2);
-
-    console.log(hand3);
-
-    console.log(hand4);
-
     this.state = {
       hand1: hand1,
       hand2: hand2,
       hand3: hand3,
       hand4: hand4,
+      handSize: 13,
       img: this.props.img,
-      tieDeck: []
+      menu: "showing"
     }
+  }
+
+  exitMenu = () => {
+    this.setState({
+      menu: "notShowing"
+    })
+  }
+
+  deal(){
+    // Initialize empty deck array
+    let cards = [];
+
+    for (let i=0; i < this.state.hand1.length; i++) {
+      cards.push(<GameCard ref={'card'+i} key={i} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="front" location="hand1"/>)
+    }
+
+    for (let i=0; i < this.state.hand2.length; i++) {
+      cards.push(<GameCard ref={'card'+i+this.state.handSize-1} key={i+this.state.handSize-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand2"/>)
+    }
+
+    for (let i=0; i < this.state.hand3.length; i++) {
+      cards.push(<GameCard ref={'card'+i+(2*this.state.handSize)-1} key={i+(2*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand3"/>)
+    }
+
+    for (let i=0; i < this.state.hand4.length; i++) {
+      cards.push(<GameCard ref={'card'+i+(3*this.state.handSize)-1} key={i+(3*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand4"/>)
+    }
+
+    return cards;
   }
 
 
@@ -65,6 +89,32 @@ class HeartsTable extends React.Component {
   render() {
     return (
       <div id='game-container'>
+        {/* Menu */}
+        {this.state.menu === "showing" &&
+          <div>
+            <GameCard ref={"mock-deck"} key={"mock-deck"} suit={"spade"} value={"Queen"} img={this.state.img} side="back" location="deck"/>
+            <div id='start-menu'>
+              <h2 id="begin-button" className="start-menu-text" onClick={this.exitMenu}>Begin</h2>
+              <h2 className="start-menu-text">How To Play</h2>
+            </div>
+          </div>
+        }
+        <div id="playing-area">
+          <img id="hearts-logo" src={HeartsLogo} href="hearts-logo" alt="heart"/>
+        </div>
+
+        <div id="player1-hand" className="player-hand"></div>
+
+        <div id="player2-hand" className="player-hand"></div>
+
+        <div id="player3-hand" className="player-hand"></div>
+
+        <div id="player4-hand" className="player-hand"></div>
+        {this.state.menu === "notShowing" &&
+          <div>
+            {this.deal()}
+          </div>
+        }
       </div>
     );
   }

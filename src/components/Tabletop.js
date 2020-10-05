@@ -8,7 +8,7 @@ import Prof1 from "../images/backs/prof1.JPG"
 // CUSTOM IMPORTS
 import GameButtons from "./GameButtons.js";
 import SandboxDeck from "./SandboxDeck.js";
-import WarDeck from "./WarDeck.js";
+import WarTable from "./WarTable.js";
 import HeartsTable from "./HeartsTable.js";
 import Customize from "./Customize.js"
 import "../css/Tabletop.css";
@@ -153,7 +153,7 @@ class Tabletop extends React.Component {
       {this.state.mode === "war" &&
       <div id="war-table">
         <GameButtons type="help" mode={"game"} showing={this.state.showingHelpMessage} shuffle={this.resetWarDeck} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
-        <WarDeck ref="warDeck" img={this.state.img}/>
+        <WarTable ref="warTable" img={this.state.img}/>
       </div>
       }
 
@@ -161,7 +161,7 @@ class Tabletop extends React.Component {
       {this.state.mode === "hearts" &&
       <div id="hearts-table">
         <GameButtons type="help" mode={"game"} showing={this.state.showingHelpMessage} shuffle={this.resetWarDeck} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
-        <HeartsTable ref="heartsTable" img={this.state.img}/>
+        <HeartsTable data-testid="heartsTable" ref="heartsTable" img={this.state.img}/>
       </div>
       }
 

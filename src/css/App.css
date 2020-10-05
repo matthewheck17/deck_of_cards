@@ -5,8 +5,8 @@ html, body, #root {
 }
 
 .App {
-  background: #76b852; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #76b852, #8dc26f); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #76b852, #8dc26f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #34654D; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #34654D, #366850); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #34654D, #366850); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   height: 100%;
 }

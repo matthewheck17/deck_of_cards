@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing that the Hearts Table is rendering 1`] = `
+<DocumentFragment>
+  <div
+    id="game-container"
+  />
+</DocumentFragment>
+`;

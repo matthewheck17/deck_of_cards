@@ -1,0 +1,105 @@
+#game-container {
+    height: auto;
+    width: auto;
+}
+
+#start-menu {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 999;
+}
+
+.start-menu-text {
+    margin: 0;
+    text-align: center;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    font-size: 75px;
+    color: white;
+    padding-top: 50px;
+}
+
+.start-menu-text:hover {
+    color: rgb(211, 217, 223);
+    font-size: 78px;
+}
+
+#begin-button {
+    margin-top: 2em;
+}
+
+#mockDeck {
+    z-index: 998;
+}
+
+#playing-area {
+    position: absolute;
+    height: 175px;
+    width: 175px;
+    top: 50%;
+    margin-top: -87.5px;
+    left: 50%;
+    margin-left: -87.5px;
+    border: 2px solid #2b5440;
+    border-radius: 5px;
+}
+
+#hearts-logo {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 50%;
+    margin-top: -25px;
+    left: 50%;
+    margin-left: -25px;
+}
+
+.player-hand {
+    position: absolute;
+}
+
+#player1-hand {
+    bottom: 0;
+    left: 50%;
+    margin-left: -250px;
+    border: 2px solid #2b5440;
+    border-radius: 5px;
+    height: 225px;
+    margin-bottom: -100px;
+    width: 500px;
+}
+
+#player2-hand {
+    left: 0;
+    top: 50%;
+    margin-top: -200px;
+    height: 400px;
+    width: 225px;
+    margin-left: -100px;
+    border: 2px solid #2b5440;
+    border-radius: 5px;
+}
+
+#player3-hand {
+    top: 0;
+    left: 50%;
+    margin-left: -250px;
+    border: 2px solid #2b5440;
+    border-radius: 5px;
+    height: 225px;
+    margin-top: -100px;
+    width: 500px;
+}
+
+#player4-hand {
+    right: 0;
+    top: 50%;
+    margin-top: -200px;
+    height: 400px;
+    width: 225px;
+    margin-right: -100px;
+    border: 2px solid #2b5440;
+    border-radius: 5px;
+}

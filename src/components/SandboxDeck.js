@@ -52,7 +52,7 @@ class SandboxDeck extends React.Component {
     let deck = [];
 
     for (let i=0; i < this.state.suitVals.length; i++) {
-      deck.push(<DraggableCard ref={'card'+i} key={i} suit={this.state.suitVals[i][0]} value={this.state.suitVals[i][1]} img={this.state.img} top={(window.innerHeight / 2) - 75} left={(window.innerWidth / 2) - 53}/>)
+      deck.push(<DraggableCard ref={'card'+i} key={i} suit={this.state.suitVals[i][0]} value={this.state.suitVals[i][1]} img={this.state.img} top={(window.innerHeight / 2) - 140} left={(window.innerWidth / 2) - 53}/>)
     }
     
     setTimeout(() =>{
