@@ -161,7 +161,7 @@ class Tabletop extends React.Component {
       {this.state.mode === "hearts" &&
       <div id="hearts-table">
         <GameButtons type="help" mode={"game"} showing={this.state.showingHelpMessage} shuffle={this.resetWarDeck} goToMainMenu={this.goToMainMenu} helpText={this.state.helpText}/>
-        <HeartsTable data-testid="heartsTable" ref="heartsTable" img={this.state.img}/>
+        <HeartsTable ref="heartsTable" img={this.state.img}/>
       </div>
       }
 
