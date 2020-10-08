@@ -180,9 +180,9 @@ class DraggableCard extends React.Component{
     return (
       <Draggable
         position={{x: this.state.left, y: this.state.top}}
-        onStart={this.handleStart, this.onStart}
-        onDrag={this.handleDrag, this.onDrag}
-        onStop={this.handleStop, this.onStop}>
+        onStart={this.onStart}
+        onDrag={this.onDrag}
+        onStop={this.onStop}>
 
       <div id="card" onClick={(e) => this.onClick(e)}>
       {this.state.side === "back" &&

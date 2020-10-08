@@ -4,6 +4,6 @@ and see a screen with a start menu.
 
 US 1.2
 As a user, within the hearts game, I will be able to push a button that says "Begin" and be able
-to be deal a hand of cards for each player in the Hearts Game. Opposing players' hands will be
+to be dealt a hand of cards for each player in the Hearts Game. Opposing players' hands will be
 face down and the player's hand will be face up. The player will have a stack of cards and be able
 to see the top card only.
