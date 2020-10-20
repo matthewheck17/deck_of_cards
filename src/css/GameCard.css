@@ -17,14 +17,16 @@
 
 .hand2 {
     transform: rotate(90deg);
+    transform-origin: 71.5% 54%;
     left: 0px;
-    margin-left: -50px;
+    margin-left: -58px;
     top: 50%;
     margin-top: -53.625px;
     z-index: 998;
 }
 
 .hand3 {
+    transform: rotate(180deg);
     top: 0px;
     margin-top: -50px;
     left: 50%;
@@ -34,9 +36,270 @@
 
 .hand4 {
     transform: rotate(270deg);
+    transform-origin: 28% 53%;
     right: 0px;
-    margin-right: -50px;
+    margin-right: -58px;
     top: 50%;
     margin-top: -53.625px;
+    z-index: 998;
+}
+
+.hand1.card1 {
+    margin-left: -240.125px;
+    z-index: 998;
+}
+
+.hand1.card2 {
+    margin-left: -209.125px;
+    z-index: 998;
+}
+
+.hand1.card3 {
+    margin-left: -178.125px;
+    z-index: 998;
+}
+
+.hand1.card4 {
+    margin-left: -147.125px;
+    z-index: 998;
+}
+
+.hand1.card5 {
+    margin-left: -116.125px;
+    z-index: 998;
+}
+
+.hand1.card6 {
+    margin-left: -85.125px;
+    z-index: 998;
+}
+
+.hand1.card7 {
+    margin-left: -54.125px;
+    z-index: 998;
+}
+
+.hand1.card8 {
+    margin-left: -23.125px;
+    z-index: 998;
+}
+
+.hand1.card9 {
+    margin-left: 7.825px;
+    z-index: 998;
+}
+
+.hand1.card10 {
+    margin-left: 38.825px;
+    z-index: 998;
+}
+
+.hand1.card11 {
+    margin-left: 69.825px;
+    z-index: 998;
+}
+
+.hand1.card12 {
+    margin-left: 100.825px;
+    z-index: 998;
+}
+
+.hand1.card13 {
+    margin-left: 131.825px;
+    z-index: 998;
+}
+
+.hand2.card1 {
+    margin-top: -241.125px;
+    z-index: 998;
+}
+
+.hand2.card2 {
+    margin-top: -209.125px;
+    z-index: 998;
+}
+
+.hand2.card3 {
+    margin-top: -178.125px;
+    z-index: 998;
+}
+
+.hand2.card4 {
+    margin-top: -147.125px;
+    z-index: 998;
+}
+
+.hand2.card5 {
+    margin-top: -116.125px;
+    z-index: 998;
+}
+
+.hand2.card6 {
+    margin-top: -85.125px;
+    z-index: 998;
+}
+
+.hand2.card7 {
+    margin-top: -54.125px;
+    z-index: 998;
+}
+
+.hand2.card8 {
+    margin-top: -23.125px;
+    z-index: 998;
+}
+
+.hand2.card9 {
+    margin-top: 7.825px;
+    z-index: 998;
+}
+
+.hand2.card10 {
+    margin-top: 38.825px;
+    z-index: 998;
+}
+
+.hand2.card11 {
+    margin-top: 69.825px;
+    z-index: 998;
+}
+
+.hand2.card12 {
+    margin-top: 100.825px;
+    z-index: 998;
+}
+
+.hand2.card13 {
+    margin-top: 131.825px;
+    z-index: 998;
+}
+
+.hand3.card1 {
+    margin-left: -240.125px;
+    z-index: 998;
+}
+
+.hand3.card2 {
+    margin-left: -209.125px;
+    z-index: 998;
+}
+
+.hand3.card3 {
+    margin-left: -178.125px;
+    z-index: 998;
+}
+
+.hand3.card4 {
+    margin-left: -147.125px;
+    z-index: 998;
+}
+
+.hand3.card5 {
+    margin-left: -116.125px;
+    z-index: 998;
+}
+
+.hand3.card6 {
+    margin-left: -85.125px;
+    z-index: 998;
+}
+
+.hand3.card7 {
+    margin-left: -54.125px;
+    z-index: 998;
+}
+
+.hand3.card8 {
+    margin-left: -23.125px;
+    z-index: 998;
+}
+
+.hand3.card9 {
+    margin-left: 7.825px;
+    z-index: 998;
+}
+
+.hand3.card10 {
+    margin-left: 38.825px;
+    z-index: 998;
+}
+
+.hand3.card11 {
+    margin-left: 69.825px;
+    z-index: 998;
+}
+
+.hand3.card12 {
+    margin-left: 100.825px;
+    z-index: 998;
+}
+
+.hand3.card13 {
+    margin-left: 131.825px;
+    z-index: 998;
+}
+
+.hand4.card1 {
+    margin-top: -240.125px;
+    z-index: 998;
+}
+
+.hand4.card2 {
+    margin-top: -209.125px;
+    z-index: 998;
+}
+
+.hand4.card3 {
+    margin-top: -178.125px;
+    z-index: 998;
+}
+
+.hand4.card4 {
+    margin-top: -147.125px;
+    z-index: 998;
+}
+
+.hand4.card5 {
+    margin-top: -116.125px;
+    z-index: 998;
+}
+
+.hand4.card6 {
+    margin-top: -85.125px;
+    z-index: 998;
+}
+
+.hand4.card7 {
+    margin-top: -54.125px;
+    z-index: 998;
+}
+
+.hand4.card8 {
+    margin-top: -23.125px;
+    z-index: 998;
+}
+
+.hand4.card9 {
+    margin-top: 7.825px;
+    z-index: 998;
+}
+
+.hand4.card10 {
+    margin-top: 38.825px;
+    z-index: 998;
+}
+
+.hand4.card11 {
+    margin-top: 69.825px;
+    z-index: 998;
+}
+
+.hand4.card12 {
+    margin-top: 100.825px;
+    z-index: 998;
+}
+
+.hand4.card13 {
+    margin-top: 131.825px;
     z-index: 998;
 }

@@ -63,41 +63,41 @@
 #player1-hand {
     bottom: 0;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -260px;
     border: 2px solid #2b5440;
     border-radius: 5px;
     height: 225px;
     margin-bottom: -100px;
-    width: 500px;
+    width: 520px;
 }
 
 #player2-hand {
     left: 0;
     top: 50%;
-    margin-top: -200px;
-    height: 400px;
-    width: 225px;
-    margin-left: -100px;
+    margin-top: -260px;
     border: 2px solid #2b5440;
     border-radius: 5px;
+    width: 225px;
+    margin-left: -100px;
+    height: 520px;
 }
 
 #player3-hand {
     top: 0;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -260px;
     border: 2px solid #2b5440;
     border-radius: 5px;
     height: 225px;
     margin-top: -100px;
-    width: 500px;
+    width: 520px;
 }
 
 #player4-hand {
     right: 0;
     top: 50%;
-    margin-top: -200px;
-    height: 400px;
+    margin-top: -260px;
+    height: 520px;
     width: 225px;
     margin-right: -100px;
     border: 2px solid #2b5440;

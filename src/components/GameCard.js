@@ -29,6 +29,7 @@ class GameCard extends React.Component{
       img: this.props.img,
       side: this.props.side,
       location: this.props.location,   //location will be used as the classname in order to set the location of the card in css
+      slot: this.props.slot,
     };
   }
 
@@ -130,15 +131,17 @@ class GameCard extends React.Component{
         break;
     }
 
+    var cardClass = this.state.location + " " + this.state.slot;
+
     return (
       <div  >
       {this.state.side === "back" &&
-        <div className={this.state.location} id="back-of-card">
+        <div className={cardClass} id="back-of-card">
           <img alt="card back" src={this.props.img} draggable={false} id="back-image"/>
         </div>
       }
       {this.state.side === "front" &&
-        <div className={this.state.location} draggable={false} id="playing-card">
+        <div className={cardClass} draggable={false} id="playing-card">
           {topLeftSuit}
           {bottomRightSuit}
           {topLeftValue}

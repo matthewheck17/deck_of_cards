@@ -72,19 +72,23 @@ class HeartsTable extends React.Component {
 
     // 4 for loops to initialize each game card component with the card suit and value taken from its respective player hand array
     for (let i=0; i < this.state.hand1.length; i++) {
-      cards.push(<GameCard ref={'card'+i} key={i} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="front" location="hand1"/>)
+      var cardNumber = i + 1;
+      cards.push(<GameCard ref={'card'+i} key={i} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="front" location="hand1" slot={"card"+cardNumber}/>)
     }
 
     for (let i=0; i < this.state.hand2.length; i++) {
-      cards.push(<GameCard ref={'card'+i+this.state.handSize-1} key={i+this.state.handSize-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand2"/>)
+      var cardNumber = i + 1;
+      cards.push(<GameCard ref={'card'+i+this.state.handSize-1} key={i+this.state.handSize-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand2" slot={"card"+cardNumber}/>)
     }
 
     for (let i=0; i < this.state.hand3.length; i++) {
-      cards.push(<GameCard ref={'card'+i+(2*this.state.handSize)-1} key={i+(2*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand3"/>)
+      var cardNumber = i + 1;
+      cards.push(<GameCard ref={'card'+i+(2*this.state.handSize)-1} key={i+(2*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand3" slot={"card"+cardNumber}/>)
     }
 
     for (let i=0; i < this.state.hand4.length; i++) {
-      cards.push(<GameCard ref={'card'+i+(3*this.state.handSize)-1} key={i+(3*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand4"/>)
+      var cardNumber = i + 1;
+      cards.push(<GameCard ref={'card'+i+(3*this.state.handSize)-1} key={i+(3*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand4" slot={"card"+cardNumber}/>)
     }
 
     return cards;

@@ -1,0 +1,11 @@
+US 2.1
+As a user, I will be able visit http://localhost:3000/deck_of_cards, and click on Play a Game -> Hearts -> Begin.
+After clicking begin, I will see my 13 cards fanned out face-up, and opposing players' hands fanned out face-down.
+
+US 2.2
+As a user, I will be able to click on a card in my hand. Clicking on a card will "select" the given card, 
+causing the selected card to move upwards in relation to the other cards. 
+    -Clicking on a different card will cause the newly clicked card to move updwards, and at the same time, the card 
+    that was originally clicked will move back to its starting position.
+    -Clicking anywhere on the screen outside of the selected card will also cause the selected card to 
+    be deselected.
