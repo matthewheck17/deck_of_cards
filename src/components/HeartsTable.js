@@ -6,6 +6,7 @@
 
 // SYSTEM IMPORTS
 import React from "react";
+import $ from "jquery";
 
 // CUSTOM IMPORTS
 import GameCard from "./GameCard.js";
@@ -66,29 +67,40 @@ class HeartsTable extends React.Component {
     })
   }
 
+  deselect = (e) => {
+    if (e.target.id !== "game-container"){
+      return;
+    } else {
+      var selectedCards = document.getElementsByClassName("selected"); //find any selected cards
+      if (selectedCards[0] !== undefined) {
+        selectedCards[0].classList.remove('selected'); //remove all selected card
+      }
+    }
+  }
+
   deal(){
     // Initialize empty deck array
     let cards = [];
 
     // 4 for loops to initialize each game card component with the card suit and value taken from its respective player hand array
     for (let i=0; i < this.state.hand1.length; i++) {
-      var cardNumber = i + 1;
+      var cardNumber = i + 1;  // each card given 1-13 accordingly, used to set classname in GameCard.js
       cards.push(<GameCard ref={'card'+i} key={i} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="front" location="hand1" slot={"card"+cardNumber}/>)
     }
 
     for (let i=0; i < this.state.hand2.length; i++) {
-      var cardNumber = i + 1;
-      cards.push(<GameCard ref={'card'+i+this.state.handSize-1} key={i+this.state.handSize-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand2" slot={"card"+cardNumber}/>)
+      cardNumber = i + 1;
+      cards.push(<GameCard ref={'card'+i+this.state.handSize-1} key={i+this.state.handSize} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand2" slot={"card"+cardNumber}/>)
     }
 
     for (let i=0; i < this.state.hand3.length; i++) {
-      var cardNumber = i + 1;
-      cards.push(<GameCard ref={'card'+i+(2*this.state.handSize)-1} key={i+(2*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand3" slot={"card"+cardNumber}/>)
+      cardNumber = i + 1;
+      cards.push(<GameCard ref={'card'+i+(2*this.state.handSize)-1} key={i+(2*this.state.handSize)} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand3" slot={"card"+cardNumber}/>)
     }
 
     for (let i=0; i < this.state.hand4.length; i++) {
-      var cardNumber = i + 1;
-      cards.push(<GameCard ref={'card'+i+(3*this.state.handSize)-1} key={i+(3*this.state.handSize)-1} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand4" slot={"card"+cardNumber}/>)
+      cardNumber = i + 1;
+      cards.push(<GameCard ref={'card'+i+(3*this.state.handSize)-1} key={i+(3*this.state.handSize)} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand4" slot={"card"+cardNumber}/>)
     }
 
     return cards;
@@ -98,7 +110,7 @@ class HeartsTable extends React.Component {
 
   render() {
     return (
-      <div id='game-container'>
+      <div id='game-container' onClick={(e) => this.deselect(e)}>
         {/* Menu */}
         {this.state.menu === "showing" &&
           <div>

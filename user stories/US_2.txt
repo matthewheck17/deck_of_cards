@@ -1,5 +1,5 @@
 US 2.1
-As a user, I will be able visit http://localhost:3000/deck_of_cards, and click on Play a Game -> Hearts -> Begin.
+As a user, I will be able visit https://matthewheck17.github.io/deck_of_cards/, and click on Play a Game -> Hearts -> Begin.
 After clicking begin, I will see my 13 cards fanned out face-up, and opposing players' hands fanned out face-down.
 
 US 2.2

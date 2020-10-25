@@ -1,6 +1,8 @@
 #game-container {
-    height: auto;
-    width: auto;
+    position: absolute;
+    margin-top: -64px;
+    height: inherit;
+    width: inherit;
 }
 
 #start-menu {

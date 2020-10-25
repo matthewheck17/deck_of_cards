@@ -1,4 +1,5 @@
 import React from "react";
+import $ from "jquery";
 import "../css/PlayingCard.css";
 import "../css/GameCard.css";
 
@@ -39,6 +40,16 @@ class GameCard extends React.Component{
       value: val,
       side: 'front',
     })
+  }
+
+  select = (e) => {
+    if (!($(e.target).hasClass("selected"))){
+      var selectedCards = document.getElementsByClassName("selected"); // find the selected card
+      if (selectedCards[0] !== undefined) { // if there is a selected card
+        selectedCards[0].classList.remove('selected'); //remove the selected class from the card
+      }
+    }
+    $(e.target).toggleClass("selected");
   }
 
   render() {
@@ -141,7 +152,7 @@ class GameCard extends React.Component{
         </div>
       }
       {this.state.side === "front" &&
-        <div className={cardClass} draggable={false} id="playing-card">
+        <div className={cardClass} draggable={false} id="playing-card" onClick={(e) => this.select(e)}>
           {topLeftSuit}
           {bottomRightSuit}
           {topLeftValue}

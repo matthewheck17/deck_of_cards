@@ -44,6 +44,10 @@
     z-index: 998;
 }
 
+.hand1.selected {
+    margin-bottom: -25px;
+}
+
 .hand1.card1 {
     margin-left: -240.125px;
     z-index: 998;
