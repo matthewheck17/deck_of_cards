@@ -1,0 +1,8 @@
+US 3.1
+As a user, I will be able visit https://matthewheck17.github.io/deck_of_cards/, and click on Play a Game -> Hearts -> Begin.
+After clicking begin, I see my hand of cards, sorted by suit and in increasing order within each suit.
+
+US 3.2
+As a user, I will be able to click on a card in my hand, which will cause a "Play Card" button to appear in the lower right
+corner of the screen. Pressing the "Play Card" button will cause the selected card to be "played" and it move the card from my 
+hand to the center of the table.
