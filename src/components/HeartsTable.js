@@ -2,7 +2,7 @@
 
 // This file contains all necessart items for the HeartsTable Component
 
-// Created in US 1.1
+// Created in US 1 - Updated in US 2
 
 // SYSTEM IMPORTS
 import React from "react";
@@ -67,13 +67,14 @@ class HeartsTable extends React.Component {
     })
   }
 
+  // handles a click anywhere on the table, it will deselect the selected card if there is one
   deselect = (e) => {
-    if (e.target.id !== "game-container"){
-      return;
-    } else {
-      var selectedCards = document.getElementsByClassName("selected"); //find any selected cards
-      if (selectedCards[0] !== undefined) {
-        selectedCards[0].classList.remove('selected'); //remove all selected card
+    if ($(e.target).hasClass("hand1")){ //check if a card in the hand was clicked on
+      return; // do nothing, gameCard toggles clicks on the hand
+    } else { //somewhere other than the hand was clicked on so everything must be deselected
+      var selectedCards = document.getElementsByClassName("selected"); //find selected card
+      if (selectedCards[0] !== undefined) { // if one was found
+        selectedCards[0].classList.remove('selected'); // deselect card
       }
     }
   }

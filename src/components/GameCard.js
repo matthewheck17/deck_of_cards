@@ -1,3 +1,10 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessart items for the HeartsTable Component
+
+// Created previously - Updated in US 2
+
+
 import React from "react";
 import $ from "jquery";
 import "../css/PlayingCard.css";
@@ -31,25 +38,38 @@ class GameCard extends React.Component{
       side: this.props.side,
       location: this.props.location,   //location will be used as the classname in order to set the location of the card in css
       slot: this.props.slot,
+      selected: this.props.selected
     };
   }
 
+  //reset the card to a default state
   reset(suit, val) {
     this.setState({
       suit: suit,
       value: val,
       side: 'front',
+      selected: ""
     })
   }
 
-  select = (e) => {
-    if (!($(e.target).hasClass("selected"))){
-      var selectedCards = document.getElementsByClassName("selected"); // find the selected card
+  // handle a click on a card by selecting or deselecting it 
+  handleClick = (e) => {
+    if (!($(e.target).hasClass("selected"))){ //if the clicked card is not already selected
+      var selectedCards = document.getElementsByClassName("selected"); // find if there is a selected card
       if (selectedCards[0] !== undefined) { // if there is a selected card
         selectedCards[0].classList.remove('selected'); //remove the selected class from the card
       }
     }
-    $(e.target).toggleClass("selected");
+    $(e.target).toggleClass("selected"); // toggle the selected class from the clikcked card
+    if (this.state.selected === "selected"){ // toggle the selected state
+      this.setState({
+        selected: ""
+      });
+    } else {
+      this.setState({
+        selected: "selected"
+      });
+    }
   }
 
   render() {
@@ -152,7 +172,7 @@ class GameCard extends React.Component{
         </div>
       }
       {this.state.side === "front" &&
-        <div className={cardClass} draggable={false} id="playing-card" onClick={(e) => this.select(e)}>
+        <div className={cardClass} draggable={false} id="playing-card" onClick={(e) => this.handleClick(e)}>
           {topLeftSuit}
           {bottomRightSuit}
           {topLeftValue}
