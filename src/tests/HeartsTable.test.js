@@ -179,7 +179,6 @@ describe('CYCLE 2 TESTS', () => {
     expect(instance.state.selected).toEqual(""); // check that the card is not selected
     const mockedEvent = { target: {wrapper}};
     wrapper.find("#playing-card").simulate("click", mockedEvent);
-    //var newInstance = newWrapper.instance();
     expect(instance.state.selected).toEqual("selected"); // check that the card is selected
   })
 
