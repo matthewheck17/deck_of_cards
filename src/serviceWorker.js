@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This is an auto-generated file for react apps
+
+// Created before CIS 482
+
 // This optional code is used to register a service worker.
 // register() is not called by default.
 

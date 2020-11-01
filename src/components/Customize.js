@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessary items for the Customize Component that handles card back choices
+
+// Created before CIS 482
+
 // SYSTEM IMPORTS
 import React from "react";
 
@@ -21,6 +27,7 @@ class Customize extends React.Component {
     }
   }
 
+  //Each of these *Click functions handles the click on the given card back div and handles the selection
   prof1Click = () => {
     this.props.changeImg(Prof1);
     this.props.goToMainMenu();

@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessary items for the SandboxDeck Component
+
+// Created before CIS 482
+
 // SYSTEM IMPORTS
 import React from "react";
 

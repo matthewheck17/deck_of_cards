@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessary items for the GameButtons Component which accounts for the top buttons for each game
+
+// Created before CIS 482
+
 import React from "react";
 import ShuffleIcon from "../images/icons/shuffle.png";
 import HelpIcon from "../images/icons/help.png";
@@ -15,6 +21,7 @@ class GameButtons extends React.Component {
     };
   }
 
+  // toggles the help on or off
   toggleHelp = () => {
     var classNameToBe;
 
@@ -30,10 +37,12 @@ class GameButtons extends React.Component {
     });
   }
 
+  //handles click of exit button
   handleExit = () => {
     this.props.goToMainMenu()
   }
 
+  //handles click of shuffle button
   handleShuffle = () => {
     this.props.shuffle()
   }

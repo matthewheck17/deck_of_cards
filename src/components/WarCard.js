@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessary items for the WarCard Component
+
+// Created before CIS 482
+
 import React from "react";
 import "../css/PlayingCard.css";
 
@@ -30,6 +36,7 @@ class WarCard extends React.Component{
     };
   }
 
+  // reset the war card to initial state
   reset(suit, val) {
     this.setState({
       suit: suit,

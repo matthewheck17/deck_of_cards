@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This is one of the main files that handles the inclusion/exclusion of the various components
+
+// Created before CIS 482
+
 // SYSTEM IMPORTS
 import React from "react";
 import {RemoveScrollBar} from 'react-remove-scroll-bar';
@@ -15,9 +21,9 @@ import "../css/Tabletop.css";
 
 /* Help Message Object to pass as props */
 const help = {
-  freeMode: {
+  sandboxMode: {
     header: "Free Mode",
-    body: "Welcome to free mode - feel free to move the cards from the deck however you would like :)"
+    body: "Welcome to sandbox mode - feel free to move the cards from the deck however you would like :)"
   },
   war: {
     header: "War",
@@ -38,17 +44,11 @@ class Tabletop extends React.Component {
       showingHelpMessage: false,
       dark: false,
       img: Prof1,
-      helpText: help.freeMode,
+      helpText: help.sandboxMode,
     };
   }
 
-  loadFreeMode = () => {
-    this.setState({
-      mode: 'sandbox',
-      helpText: help.freeMode
-    });
-}
-
+  //navigate to customize menu
   goToCustomize = (e) => {
     this.setState({
       mode: "customize"
@@ -60,32 +60,36 @@ class Tabletop extends React.Component {
     this.refs.sandboxDeck.shuffle();
   }
 
+  //navigate to main menu
   goToMainMenu = (e) => {
     this.setState({
       mode: "mainMenu"
     })
   }
 
+  //changes selected card back
   changeImg = (img) => {
     this.setState({
       img: img
     })
   }
 
-
+  //navigate to sandbox mode
   goToSandboxMode = () => {
     this.setState({
       mode: 'sandbox',
-      helpText: help.freeMode
+      helpText: help.sandboxMode
     });
   }
 
+  //navigate to game menu
   goToGameMenu = () => {
     this.setState({
       mode: 'choosingGame'
     })
   }
 
+  //navigate to war game
   goToWar = () => {
     this.setState({
       mode: 'war',
@@ -93,6 +97,7 @@ class Tabletop extends React.Component {
     })
   }
 
+  //navigate to hearts game
   goToHearts = () => {
     this.setState({
       mode: 'hearts',
@@ -100,6 +105,7 @@ class Tabletop extends React.Component {
     })
   }
 
+  //navigate to about page
   goToAbout = () => {
     this.setState({
       mode: 'about'

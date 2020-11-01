@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessary items for the Draggable Card Component
+
+// Created before CIS 482
+
 import React from "react";
 import "../css/PlayingCard.css";
 import Draggable from 'react-draggable';
@@ -36,6 +42,7 @@ class DraggableCard extends React.Component{
     };
   }
 
+  // handles a click that wasn't dragged
   onClick = (e) => {
     if(this.state.flipable)
       {this.flipCard(e)}
@@ -43,6 +50,7 @@ class DraggableCard extends React.Component{
       {this.setState({flipable: true})}
   }
 
+  // handles the start of a drag
   onStart = (e) => {
     this.setState({
       deltaX: e.clientX - this.state.left,
@@ -50,6 +58,7 @@ class DraggableCard extends React.Component{
     })
   }
 
+  // handles the end of a drag
   onStop = (e) => {
     this.setState({
       top: e.clientY - this.state.deltaY,
@@ -57,12 +66,14 @@ class DraggableCard extends React.Component{
     })
   }
 
+  // handles the drag
   onDrag = (e) => {
     this.setState({
       flipable:false
     })
   }
 
+  // changes the state of the card to flip it
   flipCard = () => {
     var newSide = null;
     if (this.state.side === "back"){
@@ -76,6 +87,7 @@ class DraggableCard extends React.Component{
     })
   }
 
+  //handles re rendering the card
   handleRender() {
     this.setState({
       suit: this.props.suit,

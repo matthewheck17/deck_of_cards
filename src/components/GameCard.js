@@ -1,8 +1,8 @@
 // Cpoyright © 2020 Matthew Heck. All rights reserved.
 
-// This file contains all necessart items for the HeartsTable Component
+// This file contains all necessary items for the GameCard Component
 
-// Created previously - Updated in US 2
+// Created in US 1 - Updated in US 2
 
 
 import React from "react";

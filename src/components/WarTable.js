@@ -1,3 +1,9 @@
+// Cpoyright © 2020 Matthew Heck. All rights reserved.
+
+// This file contains all necessary items for the WarTable Component
+
+// Created before CIS 482
+
 // SYSTEM IMPORTS
 import React from "react";
 
@@ -18,12 +24,14 @@ class WarTable extends React.Component {
     var deck1 = [];
     var deck2 = [];
 
+    //put half of the cards at random into deck1
     while(allCards.length > 26){
       var rand = Math.floor(Math.random() * (allCards.length));
       deck1.push(allCards[rand]);
       allCards.splice(rand, 1);
     }
 
+    //put the rest of the cards at random into deck2
     while(allCards.length !== 0){
       rand = Math.floor(Math.random() * (allCards.length));
       deck2.push(allCards[rand]);
@@ -39,6 +47,7 @@ class WarTable extends React.Component {
     }
   }
 
+  //reset the player and opponent cards
   reset = (pCard, oCard) => {
     // Set timeout while reset occurs
     setTimeout(() =>{
@@ -47,15 +56,17 @@ class WarTable extends React.Component {
     });
   }
 
+  //handle clicking on the flip
   handleFlip = () => {
     var winMessage = "";
 
+    //handle player losing
     if (this.state.deck1.length === 1){
       winMessage="You lose! Press the Exit button to return to the main menu."
       this.setState({
         winMessage: winMessage
       });
-    } else if (this.state.deck2.length === 1) {
+    } else if (this.state.deck2.length === 1) {  //handle player winning
       winMessage="You win the game! Press the Exit button to return to the main menu."
       this.setState({
         winMessage: winMessage
@@ -76,7 +87,7 @@ class WarTable extends React.Component {
           winMessage = "You win this round. Press flip to continue";
         }
 
-
+        //handle ties
         while(this.state.tieDeck.length > 0){
           tempDeck1.unshift([this.state.tieDeck[this.state.tieDeck.length-1][0], this.state.tieDeck[this.state.tieDeck.length-1][1]])
           var tempTieDeck = this.state.tieDeck;
@@ -131,11 +142,6 @@ class WarTable extends React.Component {
         tempDeck1.pop();
         tempDeck2.pop();
       }
-
-
-      console.log(tempDeck1);
-      console.log(tempDeck2);
-      console.log(winMessage);
 
       this.setState({
         deck1: tempDeck1,
