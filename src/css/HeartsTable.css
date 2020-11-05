@@ -111,3 +111,25 @@ Created in US 1 */
     border: 2px solid #2b5440;
     border-radius: 5px;
 }
+
+#play-button {
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -430px;
+    bottom: 20px;
+    z-index: 9999;
+    background-color: white;
+    border: solid black 1px;
+    color: black;
+    padding: 20px;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 7px;
+    margin-top: 7px;
+  }
+  
+  #play-button:hover {
+    background-color: LightGray;
+  }

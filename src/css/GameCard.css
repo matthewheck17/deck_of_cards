@@ -18,6 +18,7 @@ Created before CIS 482, Updated in US 1/2 */
     left: 50%;
     margin-left: -53.625px;
     z-index: 998;
+    transition-duration: .5s;
 }
 
 
@@ -52,6 +53,15 @@ Created before CIS 482, Updated in US 1/2 */
 
 .hand1.selected {
     margin-bottom: -25px;
+    transition-duration: .5s;
+}
+
+.played {
+    bottom: 50%;
+    left: 50%;
+    margin-bottom: -75px;
+    margin-left: -53.625px;
+    z-index: 999;
 }
 
 .hand1.card1 {

@@ -56,6 +56,7 @@ class GameCard extends React.Component{
   handleClick = (e) => {
     if (!($(e.target).hasClass("selected"))){ //if the clicked card is not already selected
       var selectedCards = document.getElementsByClassName("selected"); // find if there is a selected card
+      $("#play-button").css("visibility", "visible"); //set play card button to visible
       if (selectedCards[0] !== undefined) { // if there is a selected card
         selectedCards[0].classList.remove('selected'); //remove the selected class from the card
       }

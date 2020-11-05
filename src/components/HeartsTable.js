@@ -31,7 +31,7 @@ class HeartsTable extends React.Component {
     var hand3 = [];
     var hand4 = [];
     const handSize = 13; //constant holds the number of cards in a hand
-
+    
     // loop iterates the number of times that the handsize is
     for(var index = 0; index < handSize; index++){
       var rand = Math.floor(Math.random() * (allCards.length)); //get a random card from the allCards array
@@ -47,6 +47,8 @@ class HeartsTable extends React.Component {
       hand4.push(allCards[rand]);
       allCards.splice(rand, 1);
     }
+
+    hand1 = this.sortHand(hand1);
 
     //set the state of the component
     this.state = {
@@ -67,26 +69,130 @@ class HeartsTable extends React.Component {
     })
   }
 
-  // handles a click anywhere on the table, it will deselect the selected card if there is one
-  deselect = (e) => {
-    if ($(e.target).hasClass("hand1")){ //check if a card in the hand was clicked on
-      return; // do nothing, gameCard toggles clicks on the hand
-    } else { //somewhere other than the hand was clicked on so everything must be deselected
-      var selectedCards = document.getElementsByClassName("selected"); //find selected card
-      if (selectedCards[0] !== undefined) { // if one was found
-        selectedCards[0].classList.remove('selected'); // deselect card
+  //this function will sort the hand array
+  sortHand = (hand) => {
+    for (var i = hand.length-1; i>=0; i--){
+      for(var j = 1; j<=i; j++){
+        if(this.compareCard(hand[j-1][0], hand[j][0], hand[j-1][1], hand[j][1])){
+          var temp = hand[j-1];
+          hand[j-1] = hand[j];
+          hand[j] = temp;
+        }
+      }
+    }
+    return hand;
+  }
+
+  // function is given two suits via a and b and compares them and outputs true or false accordingly
+  // it will output the cards in the following order heart, diamond, club, spade (this is just an arbitrary order I chose)
+  compareCard(aSuit, bSuit, aValue, bValue) {
+    if (aSuit === "heart"){
+      if (bSuit === "heart"){
+        return (this.compareSameSuit(aValue, bValue)); //compare values if both a and b are hearts
+      } else {
+        return false; //don't swap because hearts come first
+      }
+    }
+
+    if (aSuit === "diamond"){
+      if (bSuit === "diamond"){
+        return (this.compareSameSuit(aValue, bValue)); //compare values if both a and b are diamonds
+      }
+      if (bSuit === "heart"){
+        return true; // swap because hearts come before diamonds
+      } else {
+        return false; //don't swap
+      }
+    }
+
+    if (aSuit === "club"){
+      if (bSuit === "club"){
+        return (this.compareSameSuit(aValue, bValue)); //compare values if both a and b are diamonds
+      }
+      if (bSuit === "heart" || bSuit === "diamond"){
+        return true; // swap because hearts and diamonds come before clubs
+      } else {
+        return false;
+      }
+    }
+
+    if (aSuit === "spade"){
+      if (bSuit === "spade"){
+        return (this.compareSameSuit(aValue, bValue));  //compare values if both a and b are spades
+      }
+      if (bSuit === "heart" || bSuit === "diamond" || bSuit === "club"){
+        return true; // swap because hearts, diamonds, and clubs come before spades
       }
     }
   }
 
-  deal(){
+  // this function is called to compare values of the same suit
+  compareSameSuit (aValue, bValue){
+    let faceCard = this.findFaceCard(aValue, bValue); //find if and where possible facecards are 
+    if (faceCard === "a"){
+      return true; // just a is a facecard therefore swap
+    } else if (faceCard === "b"){
+      return false;  // just b is a facecard therefore don't swap
+    } else if (faceCard === "both"){
+      return (this.compareFaceCard(aValue, bValue)); //both are facecards so compare facecard values
+    } else { 
+      return (parseInt(aValue) > parseInt(bValue)); //neither are face cards, just compare integers
+    }
+  }
+
+  //this function takes two card values and outputs a, b, both, or none accordingly
+  findFaceCard(aValue, bValue) {
+    if (aValue === "A" || aValue ==="King" || aValue === "Queen" || aValue === "Jack"){ //if a is a face card
+      if (bValue === "A" || bValue === "King" || bValue === "Queen" || bValue === "Jack"){ //if b is a face card as well
+        return "both";
+      }
+      return "a" //only a
+    } else if (bValue === "A" || bValue === "King" || bValue === "Queen" || bValue === "Jack"){
+      return "b"; //only b
+    }
+    return "none"; //neither
+  }
+
+  // this function takes two face card values and returns true if they should be swapped 
+  // they should be swapped when a is the be the larger card. order is as follows (J, Q, K, A)
+  compareFaceCard(aValue, bValue) {
+    if (aValue === "Jack"){ //jack is first don't swap
+      return false;
+    }
+
+    if (aValue === "Queen"){
+      if (bValue === "Jack"){
+        return true; //jack comes before queen therefore swap
+      } else {
+        return false;
+      }
+    }
+
+    if (aValue === "King"){
+      if (bValue === "Queen" || bValue === "Jack"){
+        return true; //jack and queen come before king therefore swap
+      } else {
+        return false;
+      }
+    }
+
+    if (aValue === "A"){
+      if (bValue === "King" || bValue === "Queen" || bValue === "Jack"){
+        return true;  //jack, queen, and king come before ace therefore swap
+      } else {
+        return false;
+      }
+    }
+  }
+
+  deal = () => {
     // Initialize empty deck array
     let cards = [];
 
     // 4 for loops to initialize each game card component with the card suit and value taken from its respective player hand array
-    for (let i=0; i < this.state.hand1.length; i++) {
-      var cardNumber = i + 1;  // each card given 1-13 accordingly, used to set classname in GameCard.js
-      cards.push(<GameCard ref={'card'+i} key={i} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="front" location="hand1" slot={"card"+cardNumber}/>)
+    for (let i1=0; i1 < this.state.hand1.length; i1++) {
+      var cardNumber = i1 + 1;  // each card given 1-13 accordingly, used to set classname in GameCard.js
+      cards.push(<GameCard ref={'card'+i1} key={i1} suit={this.state.hand1[i1][0]} value={this.state.hand1[i1][1]} img={this.state.img} side="front" location="hand1" slot={"card"+cardNumber}/>)
     }
 
     for (let i=0; i < this.state.hand2.length; i++) {
@@ -107,6 +213,37 @@ class HeartsTable extends React.Component {
     return cards;
   }
 
+  // handles a click anywhere on the table, it will deselect the selected card if there is one
+  deselect = (e) => {
+    if ($(e.target).hasClass("hand1")){ //check if a card in the hand was clicked on
+      return; // do nothing, gameCard toggles clicks on the hand
+    } else { //somewhere other than the hand was clicked on so everything must be deselected
+      var selectedCards = document.getElementsByClassName("selected"); //find selected card
+      if (selectedCards[0] !== undefined) { // if one was found
+        selectedCards[0].classList.remove('selected'); // deselect card
+        $("#play-button").css("visibility", "hidden"); // hide play card button
+      }
+    }
+  }
+
+  playCard() {
+    var playedCards = document.getElementsByClassName("played"); //find all played cards
+    var selectedCard = document.getElementsByClassName("selected"); //find selected card
+    selectedCard[0].classList.remove(selectedCard[0].classList.item(1)); // remove slot class from card
+    selectedCard[0].classList.add('played'); // play card
+    if (playedCards.length === 1){ //if there has only been one card played
+      playedCards[0].style.zIndex = 1; // init first zIndex to 1
+    }
+    if (playedCards[0] !== undefined){ // if there are any already played cards
+      let biggestZIndex = 0;
+      for (let i = 0; i< playedCards.length; i++){ //loop through played cards and find biggest zIndex
+        if (parseInt(playedCards[i].style.zIndex) > parseInt(biggestZIndex)){
+          biggestZIndex = playedCards[i].style.zIndex;
+        }
+      }
+      selectedCard[0].style.zIndex = parseInt(biggestZIndex) + 1; //set the zIndex to one larger than the biggest
+    } 
+  }
 
 
   render() {
@@ -132,6 +269,8 @@ class HeartsTable extends React.Component {
         <div id="player3-hand" className="player-hand"></div>
 
         <div id="player4-hand" className="player-hand"></div>
+
+        <div id="play-button" onClick={this.playCard}>Play Card</div>
         {this.state.menu === "notShowing" &&
           <div>
             {this.deal()}
