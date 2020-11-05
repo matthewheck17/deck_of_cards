@@ -226,12 +226,67 @@ class HeartsTable extends React.Component {
     }
   }
 
+
+  // This function handles a click on the play card button.
+  // it will cause the selected card to move from the player's hand to the center of the table
+  // and it will cause remaining cards to shift towards the center of the player's hand
+
+  // NOTE: this function is extremely long because React does not allow you to call other functions 
+  // from inside of an onclick function so it could not be broken up
   playCard() {
-    var playedCards = document.getElementsByClassName("played"); //find all played cards
-    var selectedCard = document.getElementsByClassName("selected"); //find selected card
+    var selectedCard = document.getElementsByClassName("selected"); //find the selected card
+    var cardsInHand = document.getElementsByClassName("hand1 in-hand"); //find all cards in-hand
+    var slotNumber = selectedCard[0].classList.item(1).replace("card", ""); // get the slot of the selected card
+
+
+    let cardsToShift = []; //init array to hold cards that need to shift
+    let cardsToShiftIndex = 0; //init index for cards to shift
+    const CENTEROFHAND = 8;
+
+    if (parseInt(slotNumber) < CENTEROFHAND){ // if the card is left of center we need to shift right
+      for (let i = 0; i < cardsInHand.length; i++){ //loop through all cards in hand
+        let iSlotNumber = cardsInHand[i].classList.item(1).replace("card", "");
+        if (parseInt(iSlotNumber) < parseInt(slotNumber)){ // check if card is left of the selected card
+          cardsToShift[cardsToShiftIndex] = cardsInHand[i]; //add it to cardsToShiftArray
+          cardsToShiftIndex++;
+        }
+      }
+      //cardsToShift now contains all cards that need to be shifted to the right, this loop iterates through them shifting them each
+      for (let i = cardsToShift.length -1; i > -1; i--){
+        let oldSlot = cardsToShift[i].classList.item(1).replace("card", ""); //get original slot
+        oldSlot = parseInt(oldSlot) + 1; //increment slot
+        let newSlot = "card" + oldSlot;
+        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove old slot class from card
+        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove in-hand class from card
+        cardsToShift[i].classList.add(newSlot); //add new slot
+        cardsToShift[i].classList.add("in-hand"); // removed and re-added to preserve original class order
+      }
+    } else { //the else is the same idea except finds all cards right of the selected card and shifts them each to the left
+      for (let i = 0; i < cardsInHand.length; i++){
+        let iSlotNumber = cardsInHand[i].classList.item(1).replace("card", "");
+        if (parseInt(iSlotNumber) > parseInt(slotNumber)){
+          cardsToShift[cardsToShiftIndex] = cardsInHand[i];
+          cardsToShiftIndex++;
+        }
+      }
+      for (let i = cardsToShift.length -1; i > -1; i--){
+        let oldSlot = cardsToShift[i].classList.item(1).replace("card", "");
+        oldSlot = parseInt(oldSlot) - 1;
+        let newSlot = "card" + oldSlot;
+        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove slot class from card
+        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove in-hand class from card
+        cardsToShift[i].classList.add(newSlot); 
+        cardsToShift[i].classList.add("in-hand"); // removed and re-added to preserve original class order
+      }
+    } // at this point all cards are shifted to their correct new locations
+
+
+    // now we deal with the selected card
     selectedCard[0].classList.remove(selectedCard[0].classList.item(1)); // remove slot class from card
+    selectedCard[0].classList.remove(selectedCard[0].classList.item(1)); // remove in-hand class from card
+    var playedCards = document.getElementsByClassName("played"); //find all previously played cards
     selectedCard[0].classList.add('played'); // play card
-    if (playedCards.length === 1){ //if there has only been one card played
+    if (playedCards.length === 1){ //if there has only been one card played zIndex needs to be initailized
       playedCards[0].style.zIndex = 1; // init first zIndex to 1
     }
     if (playedCards[0] !== undefined){ // if there are any already played cards
@@ -242,6 +297,7 @@ class HeartsTable extends React.Component {
         }
       }
       selectedCard[0].style.zIndex = parseInt(biggestZIndex) + 1; //set the zIndex to one larger than the biggest
+      //now the selected card is played and it has a higher zIndex than the previously played cards so it is on top
     } 
   }
 

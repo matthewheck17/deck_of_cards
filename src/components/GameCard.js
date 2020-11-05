@@ -163,7 +163,7 @@ class GameCard extends React.Component{
         break;
     }
 
-    var cardClass = this.state.location + " " + this.state.slot;
+    var cardClass = this.state.location + " " + this.state.slot + " in-hand";
 
     return (
       <div  >
