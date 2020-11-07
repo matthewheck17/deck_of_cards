@@ -8,6 +8,6 @@ corner of the screen. Pressing the "Play Card" button will cause the selected ca
 hand to the center of the table.
 
 US 3.3
-Afer playing a card to the center of the table, the user's hand will compress. If the played card was left of center, any cards
+After playing a card to the center of the table, the user's hand will compress. If the played card was left of center, any cards
 that were further to the left will shift one position to the right. If the played card was right of center, any cards
 that were further to the right will shift one position to the left.

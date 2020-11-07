@@ -129,6 +129,10 @@ Created in US 1 */
     border-radius: 7px;
     margin-top: 7px;
   }
+
+  #play-button.visible {
+      visibility: visible;
+  }
   
   #play-button:hover {
     background-color: LightGray;

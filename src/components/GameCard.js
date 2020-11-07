@@ -54,22 +54,27 @@ class GameCard extends React.Component{
 
   // handle a click on a card by selecting or deselecting it 
   handleClick = (e) => {
-    if (!($(e.target).hasClass("selected"))){ //if the clicked card is not already selected
-      var selectedCards = document.getElementsByClassName("selected"); // find if there is a selected card
-      $("#play-button").css("visibility", "visible"); //set play card button to visible
-      if (selectedCards[0] !== undefined) { // if there is a selected card
-        selectedCards[0].classList.remove('selected'); //remove the selected class from the card
+    if (!($(e.target).hasClass("played"))){ // check that the card has not already been played
+      if (!($(e.target).hasClass("selected"))){ //if the clicked card is not already selected
+        var selectedCards = document.getElementsByClassName("selected"); // find if there is a selected card
+        var playButton = document.getElementById("play-button");
+        if (playButton != null){ // this check is for testing purposes when only gamecard is rendered without the heartstable
+          playButton.classList.add('visible');
+        }
+        if (selectedCards[0] !== undefined) { // if there is a selected card
+          selectedCards[0].classList.remove('selected'); //remove the selected class from the card
+        }
       }
-    }
-    $(e.target).toggleClass("selected"); // toggle the selected class from the clikcked card
-    if (this.state.selected === "selected"){ // toggle the selected state
-      this.setState({
-        selected: ""
-      });
-    } else {
-      this.setState({
-        selected: "selected"
-      });
+      $(e.target).toggleClass("selected"); // toggle the selected class from the clikcked card
+      if (this.state.selected === "selected"){ // toggle the selected state
+        this.setState({
+          selected: ""
+        });
+      } else {
+        this.setState({
+          selected: "selected"
+        });
+      }
     }
   }
 

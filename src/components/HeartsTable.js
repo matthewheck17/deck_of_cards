@@ -221,7 +221,8 @@ class HeartsTable extends React.Component {
       var selectedCards = document.getElementsByClassName("selected"); //find selected card
       if (selectedCards[0] !== undefined) { // if one was found
         selectedCards[0].classList.remove('selected'); // deselect card
-        $("#play-button").css("visibility", "hidden"); // hide play card button
+        var playButton = document.getElementById("play-button"); //find play button
+        playButton.classList.remove('visible'); // remove visible class
       }
     }
   }

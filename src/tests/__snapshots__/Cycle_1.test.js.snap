@@ -8,7 +8,7 @@ exports[`CYCLE 1 TESTS US 1.1 - Testing that the Hearts Table component renders 
     <div>
       <div>
         <div
-          class="deck undefined"
+          class="deck undefined in-hand"
           id="back-of-card"
         >
           <img
@@ -55,6 +55,11 @@ exports[`CYCLE 1 TESTS US 1.1 - Testing that the Hearts Table component renders 
       class="player-hand"
       id="player4-hand"
     />
+    <div
+      id="play-button"
+    >
+      Play Card
+    </div>
   </div>
 </DocumentFragment>
 `;
