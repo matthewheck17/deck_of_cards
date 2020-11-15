@@ -22,7 +22,7 @@ import "../css/Tabletop.css";
 /* Help Message Object to pass as props */
 const help = {
   sandboxMode: {
-    header: "Free Mode",
+    header: "Sandbox Mode",
     body: "Welcome to sandbox mode - feel free to move the cards from the deck however you would like :)"
   },
   war: {
