@@ -6,7 +6,6 @@
 
 // SYSTEM IMPORTS
 import React from "react";
-import $ from "jquery";
 
 // CUSTOM IMPORTS
 import GameCard from "./GameCard.js";
@@ -30,6 +29,14 @@ class HeartsTable extends React.Component {
     var hand2 = [];
     var hand3 = [];
     var hand4 = [];
+
+    //create array to keep track of each card location
+    var cardStatus = [];
+    const deckSize = 52;
+    for (let i = 0; i < deckSize; i++){
+      cardStatus[i] = "in-hand";
+    }
+
     const handSize = 13; //constant holds the number of cards in a hand
     
     // loop iterates the number of times that the handsize is
@@ -50,6 +57,28 @@ class HeartsTable extends React.Component {
 
     hand1 = this.sortHand(hand1);
 
+    // create arrays to keep track of the slots of the cards in each hand
+    // NOTE: even though they are all initially the same, unique arrays had to initialize each state variable or else they would be tied together (ie changing the state of hand1Card slots would also change 2,3, and 4)
+    var hand1CardSlots = [];  //create array containing card1-card13
+    for (let i = 0; i < handSize; i++){
+      hand1CardSlots[i] = "card" + (parseInt(i) + 1);
+    }
+
+    var hand2CardSlots = [];  //create array containing card1-card13
+    for (let i = 0; i < handSize; i++){
+      hand2CardSlots[i] = "card" + (parseInt(i) + 1);
+    }
+
+    var hand3CardSlots = [];  //create array containing card1-card13
+    for (let i = 0; i < handSize; i++){
+      hand3CardSlots[i] = "card" + (parseInt(i) + 1);
+    }
+
+    var hand4CardSlots = [];  //create array containing card1-card13
+    for (let i = 0; i < handSize; i++){
+      hand4CardSlots[i] = "card" + (parseInt(i) + 1);
+    }
+
     //set the state of the component
     this.state = {
       hand1: hand1,
@@ -57,9 +86,17 @@ class HeartsTable extends React.Component {
       hand3: hand3,
       hand4: hand4,
       handSize: 13,
+      cardStatus: cardStatus,
+      hand1CardSlots: hand1CardSlots,
+      hand2CardSlots: hand2CardSlots,
+      hand3CardSlots: hand3CardSlots,
+      hand4CardSlots: hand4CardSlots,
       img: this.props.img,
       menu: "showing"
     }
+
+    this.handleCardClick = this.handleCardClick.bind(this);
+    this.playCard = this.playCard.bind(this);
   }
 
   //function to exit the menu
@@ -190,120 +227,118 @@ class HeartsTable extends React.Component {
     let cards = [];
 
     // 4 for loops to initialize each game card component with the card suit and value taken from its respective player hand array
-    for (let i1=0; i1 < this.state.hand1.length; i1++) {
-      var cardNumber = i1 + 1;  // each card given 1-13 accordingly, used to set classname in GameCard.js
-      cards.push(<GameCard ref={'card'+i1} key={i1} suit={this.state.hand1[i1][0]} value={this.state.hand1[i1][1]} img={this.state.img} side="front" location="hand1" slot={"card"+cardNumber}/>)
+    for (let i=0; i < this.state.hand1.length; i++) {
+      cards.push(<GameCard key={i} cardID={i} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="front" location="hand1" slot={this.state.hand1CardSlots[i]} status={this.state.cardStatus[i]} handleCardClick={this.handleCardClick}/>)
     }
 
     for (let i=0; i < this.state.hand2.length; i++) {
-      cardNumber = i + 1;
-      cards.push(<GameCard ref={'card'+i+this.state.handSize-1} key={i+this.state.handSize} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand2" slot={"card"+cardNumber}/>)
+      cards.push(<GameCard key={i+this.state.handSize} cardID={i+this.state.handSize} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand2" slot={this.state.hand2CardSlots[i]} status={this.state.cardStatus[i+this.state.handSize]}/>)
     }
 
     for (let i=0; i < this.state.hand3.length; i++) {
-      cardNumber = i + 1;
-      cards.push(<GameCard ref={'card'+i+(2*this.state.handSize)-1} key={i+(2*this.state.handSize)} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand3" slot={"card"+cardNumber}/>)
+      cards.push(<GameCard key={i+(2*this.state.handSize)} cardID={i+(2*this.state.handSize)} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand3" slot={this.state.hand3CardSlots[i]} status={this.state.cardStatus[i+(2*this.state.handSize)]}/>)
     }
 
     for (let i=0; i < this.state.hand4.length; i++) {
-      cardNumber = i + 1;
-      cards.push(<GameCard ref={'card'+i+(3*this.state.handSize)-1} key={i+(3*this.state.handSize)} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand4" slot={"card"+cardNumber}/>)
+      cards.push(<GameCard key={i+(3*this.state.handSize)} cardID={i+(3*this.state.handSize)} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side="back" location="hand4" slot={this.state.hand4CardSlots[i]} status={this.state.cardStatus[i+(3*this.state.handSize)]}/>)
     }
 
     return cards;
   }
 
-  // handles a click anywhere on the table, it will deselect the selected card if there is one
-  deselect = (e) => {
-    if ($(e.target).hasClass("hand1")){ //check if a card in the hand was clicked on
-      return; // do nothing, gameCard toggles clicks on the hand
-    } else { //somewhere other than the hand was clicked on so everything must be deselected
-      var selectedCards = document.getElementsByClassName("selected"); //find selected card
-      if (selectedCards[0] !== undefined) { // if one was found
-        selectedCards[0].classList.remove('selected'); // deselect card
-        var playButton = document.getElementById("play-button"); //find play button
-        playButton.classList.remove('visible'); // remove visible class
-      }
+  // function called from GameCard component when a card is clicked on
+  // this updates the cardStatus array to deselect any selected cards and select clicked card if it was not selected
+  handleCardClick(clickedCardID) {
+    let updatedCardStatus = this.state.cardStatus;
+
+    if (this.state.hand1CardSlots[clickedCardID] === "played"){
+      return;  //don't select if card has already been played
     }
+
+    if (updatedCardStatus[clickedCardID] === "selected"){
+      updatedCardStatus[clickedCardID] = "in-hand";
+      document.getElementById("play-button").classList.remove('visible'); // hide play card button
+    } else if (updatedCardStatus[clickedCardID] === "in-hand"){
+      while (updatedCardStatus.includes("selected")){
+        let selectedIndex = updatedCardStatus.indexOf("selected");
+        updatedCardStatus[selectedIndex] = "in-hand";
+      }
+      updatedCardStatus[clickedCardID] = "selected";
+      document.getElementById("play-button").classList.add('visible'); // show play card button
+    }
+
+    this.setState({
+      cardStatus: updatedCardStatus
+    })
   }
 
+  // handles a click anywhere on the table, it will deselect the selected card if there is one
+  deselect = (e) => {
+    if (!e.target.className.includes("hand1")) { //if hand1 was not clicked on
+      let updatedCardStatus = this.state.cardStatus; //copy card status array
+      while (updatedCardStatus.includes("selected")){  //while there are cards selected, change to in-hand
+        let selectedIndex = updatedCardStatus.indexOf("selected");
+        updatedCardStatus[selectedIndex] = "in-hand";
+      }
+      var playButton = document.getElementById("play-button"); //find play button
+      playButton.classList.remove('visible'); // remove visible class
+      //update state to new array
+      this.setState({
+        cardStatus: updatedCardStatus
+      })
+    }
+  }
 
   // This function handles a click on the play card button.
   // it will cause the selected card to move from the player's hand to the center of the table
   // and it will cause remaining cards to shift towards the center of the player's hand
-
-  // NOTE: this function is extremely long because React does not allow you to call other functions 
-  // from inside of an onclick function so it could not be broken up
   playCard() {
-    var selectedCard = document.getElementsByClassName("selected"); //find the selected card
-    var cardsInHand = document.getElementsByClassName("hand1 in-hand"); //find all cards in-hand
-    var slotNumber = selectedCard[0].classList.item(1).replace("card", ""); // get the slot of the selected card
+    let selectedCard = this.state.cardStatus.indexOf("selected"); // get the index of the selected card
+    let cardsToShift = []; //initialize empty array to hold the card #'s of the cards that need shifted
+    var cardSlots = this.state.hand1CardSlots; // create array to hold updated card slots
 
+    if (selectedCard < Math.ceil(this.state.handSize/2)){ //if selected card is left of center
+      for (let index = 0; index < selectedCard; index++){
+        cardsToShift[index] = index; //fill out array from 0 to the last card that needs shifted
+      }
 
-    let cardsToShift = []; //init array to hold cards that need to shift
-    let cardsToShiftIndex = 0; //init index for cards to shift
-    const CENTEROFHAND = 8;
+      cardSlots[selectedCard] = "played"; //mark selected card as played
+      let totalCardsToShift = cardsToShift.length;
 
-    if (parseInt(slotNumber) < CENTEROFHAND){ // if the card is left of center we need to shift right
-      for (let i = 0; i < cardsInHand.length; i++){ //loop through all cards in hand
-        let iSlotNumber = cardsInHand[i].classList.item(1).replace("card", "");
-        if (parseInt(iSlotNumber) < parseInt(slotNumber)){ // check if card is left of the selected card
-          cardsToShift[cardsToShiftIndex] = cardsInHand[i]; //add it to cardsToShiftArray
-          cardsToShiftIndex++;
+      for (let index = 0; index < totalCardsToShift; index++){
+        if (cardSlots[cardsToShift[0]] !== "played"){  //if the card has not already been played
+          let currentCardSlot = cardSlots[cardsToShift[0]].split('d').pop();  // this will get the number of the slot currently
+          cardSlots[cardsToShift[0]] = "card" + (parseInt(currentCardSlot) + 1);
         }
+        cardsToShift.shift(); //remove first element from cardsToShift
       }
-      //cardsToShift now contains all cards that need to be shifted to the right, this loop iterates through them shifting them each
-      for (let i = cardsToShift.length -1; i > -1; i--){
-        let oldSlot = cardsToShift[i].classList.item(1).replace("card", ""); //get original slot
-        oldSlot = parseInt(oldSlot) + 1; //increment slot
-        let newSlot = "card" + oldSlot;
-        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove old slot class from card
-        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove in-hand class from card
-        cardsToShift[i].classList.add(newSlot); //add new slot
-        cardsToShift[i].classList.add("in-hand"); // removed and re-added to preserve original class order
+
+    } else { // selected card is right of center
+
+      for (let index = 0; index + parseInt(selectedCard) + 1 < this.state.handSize; index++){
+        cardsToShift[index] = index + parseInt(selectedCard) + 1; //fill out array from 1 + selected to 12 (last card)
       }
-    } else { //the else is the same idea except finds all cards right of the selected card and shifts them each to the left
-      for (let i = 0; i < cardsInHand.length; i++){
-        let iSlotNumber = cardsInHand[i].classList.item(1).replace("card", "");
-        if (parseInt(iSlotNumber) > parseInt(slotNumber)){
-          cardsToShift[cardsToShiftIndex] = cardsInHand[i];
-          cardsToShiftIndex++;
+
+      cardSlots[selectedCard] = "played"; //mark selected card as played
+      let totalCardsToShift = cardsToShift.length;
+
+      for (let index = 0; index < totalCardsToShift; index++){
+        if (cardSlots[cardsToShift[0]] !== "played"){  //if the card has not already been played
+          let currentCardSlot = cardSlots[cardsToShift[0]].split('d').pop();  // this will get the number of the slot currently
+          cardSlots[cardsToShift[0]] = "card" + (parseInt(currentCardSlot) - 1);
         }
+        cardsToShift.shift(); //remove first element from cardsToShift
       }
-      for (let i = cardsToShift.length -1; i > -1; i--){
-        let oldSlot = cardsToShift[i].classList.item(1).replace("card", "");
-        oldSlot = parseInt(oldSlot) - 1;
-        let newSlot = "card" + oldSlot;
-        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove slot class from card
-        cardsToShift[i].classList.remove(cardsToShift[i].classList.item(1)); // remove in-hand class from card
-        cardsToShift[i].classList.add(newSlot); 
-        cardsToShift[i].classList.add("in-hand"); // removed and re-added to preserve original class order
-      }
-    } // at this point all cards are shifted to their correct new locations
-
-
-    // now we deal with the selected card
-    selectedCard[0].classList.remove(selectedCard[0].classList.item(1)); // remove slot class from card
-    selectedCard[0].classList.remove(selectedCard[0].classList.item(1)); // remove in-hand class from card
-    var playedCards = document.getElementsByClassName("played"); //find all previously played cards
-    selectedCard[0].classList.add('played'); // play card
-    if (playedCards.length === 1){ //if there has only been one card played zIndex needs to be initailized
-      playedCards[0].style.zIndex = 1; // init first zIndex to 1
     }
-    if (playedCards[0] !== undefined){ // if there are any already played cards
-      let biggestZIndex = 0;
-      for (let i = 0; i< playedCards.length; i++){ //loop through played cards and find biggest zIndex
-        if (parseInt(playedCards[i].style.zIndex) > parseInt(biggestZIndex)){
-          biggestZIndex = playedCards[i].style.zIndex;
-        }
-      }
-      selectedCard[0].style.zIndex = parseInt(biggestZIndex) + 1; //set the zIndex to one larger than the biggest
-      //now the selected card is played and it has a higher zIndex than the previously played cards so it is on top
-    } 
+
+    this.setState({
+      hand1CardSlots: cardSlots
+    })
   }
 
 
   render() {
+    // game container onClick={(e) => this.deselect(e)}
     return (
       <div id='game-container' onClick={(e) => this.deselect(e)}>
         {/* Menu */}
@@ -328,6 +363,7 @@ class HeartsTable extends React.Component {
         <div id="player4-hand" className="player-hand"></div>
 
         <div id="play-button" onClick={this.playCard}>Play Card</div>
+
         {this.state.menu === "notShowing" &&
           <div>
             {this.deal()}
