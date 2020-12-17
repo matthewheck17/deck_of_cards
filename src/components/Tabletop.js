@@ -135,7 +135,7 @@ class Tabletop extends React.Component {
           <div className='menu'>
             <p id="title">Games</p>
             <p><button className="button" onClick={this.goToWar}>War</button></p>
-            <p><button className="button" onClick={this.goToHearts}>Hearts</button></p>
+            <p><button className="button" onClick={this.goToHearts}>Hearts (Under Construction)</button></p>
             <p><button className="button" onClick={this.goToMainMenu}>Exit</button></p>
           </div>
       }
