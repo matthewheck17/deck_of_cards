@@ -177,7 +177,7 @@ class Tabletop extends React.Component {
       <GameButtons type="help" mode={"menu"} goToMainMenu={this.goToMainMenu}/>
         <p id="title">About</p>
         <div>
-          <p id="text">This is a web application developed by Braden Batman, Chase Grainger, and Matthew Heck. You can play premade games, or play around with a deck of cards in Sandbox mode.</p>
+          <p id="text">This is a ReactJS web application developed by Matthew Heck with some help from Braden Batman and Chase Grainger in its early days. You can play games, or you can play around with a deck of cards in sandbox mode.</p>
         </div>
       </div>
       }
