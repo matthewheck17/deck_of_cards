@@ -6,7 +6,6 @@
 
 
 import React from "react";
-import $ from "jquery";
 import "../css/PlayingCard.css";
 import "../css/GameCard.css";
 
@@ -32,50 +31,21 @@ class GameCard extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
+      cardID: this.props.cardID,
       suit: this.props.suit,
       value: this.props.value,
       img: this.props.img,
       side: this.props.side,
       location: this.props.location,   //location will be used as the classname in order to set the location of the card in css
       slot: this.props.slot,
-      selected: this.props.selected
+      status: this.props.status,
+      handleCardClick: this.props.handleCardClick
     };
   }
 
-  //reset the card to a default state
-  reset(suit, val) {
-    this.setState({
-      suit: suit,
-      value: val,
-      side: 'front',
-      selected: ""
-    })
-  }
-
   // handle a click on a card by selecting or deselecting it 
-  handleClick = (e) => {
-    if (!($(e.target).hasClass("played"))){ // check that the card has not already been played
-      if (!($(e.target).hasClass("selected"))){ //if the clicked card is not already selected
-        var selectedCards = document.getElementsByClassName("selected"); // find if there is a selected card
-        var playButton = document.getElementById("play-button");
-        if (playButton != null){ // this check is for testing purposes when only gamecard is rendered without the heartstable
-          playButton.classList.add('visible');
-        }
-        if (selectedCards[0] !== undefined) { // if there is a selected card
-          selectedCards[0].classList.remove('selected'); //remove the selected class from the card
-        }
-      }
-      $(e.target).toggleClass("selected"); // toggle the selected class from the clikcked card
-      if (this.state.selected === "selected"){ // toggle the selected state
-        this.setState({
-          selected: ""
-        });
-      } else {
-        this.setState({
-          selected: "selected"
-        });
-      }
-    }
+  handleClick = () => {
+    this.props.handleCardClick(this.state.cardID); //call parent handle click component which properly handle click and deal with any sibling component needs
   }
 
   render() {
@@ -168,7 +138,7 @@ class GameCard extends React.Component{
         break;
     }
 
-    var cardClass = this.state.location + " " + this.state.slot + " in-hand";
+    var cardClass = this.state.location + " " + this.props.slot + " " + this.props.status;
 
     return (
       <div  >
@@ -178,7 +148,7 @@ class GameCard extends React.Component{
         </div>
       }
       {this.state.side === "front" &&
-        <div className={cardClass} draggable={false} id="playing-card" onClick={(e) => this.handleClick(e)}>
+        <div className={cardClass} draggable={false} id="playing-card" onClick={this.handleClick}>
           {topLeftSuit}
           {bottomRightSuit}
           {topLeftValue}

@@ -121,27 +121,5 @@ describe('CYCLE 2 TESTS', () => {
       var instance = wrapper.instance();
       expect(wrapper.find('.selected').length).toEqual(0); //check nothing is selected
     })
-  
-  
-  
-    it("US 2.2 - Testing that the a card is selected when it is clicked", () => {
-  
-      const wrapper = shallow(<GameCard suit="heart" value="A" img={Prof1} side="front" location="hand1" slot="card1" selected=""/>);
-      var instance = wrapper.instance();
-      expect(instance.state.selected).toEqual(""); // check that the card is not selected
-      const mockedEvent = { target: {wrapper}};
-      wrapper.find("#playing-card").simulate("click", mockedEvent);
-      expect(instance.state.selected).toEqual("selected"); // check that the card is selected
-    })
-  
-    it("US 2.2 - Testing that the a selected card is deselected when it is clicked", () => {
-  
-      const wrapper = shallow(<GameCard suit="heart" value="A" img={Prof1} side="front" location="hand1" slot="card1" selected="selected"/>);
-      var instance = wrapper.instance();
-      expect(instance.state.selected).toEqual("selected"); // check that the card is selected
-      const mockedEvent = { target: {wrapper}};
-      wrapper.find("#playing-card").simulate("click", mockedEvent);
-      expect(instance.state.selected).toEqual(""); // check that the card is not selected
-    })
   })
   
