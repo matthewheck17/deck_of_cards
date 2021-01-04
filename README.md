@@ -1,4 +1,12 @@
-This project featuers a simulation of a playing deck of cards. The user will be able to move the cards freely as if they were actual playing cards. The user will also be able to reset the deck to pre-defined layouts in order to play some of the most popular card games.
+This project featuers a simulation of a deck of playing cards. The user can move the cards freely in sandbox mode or they can play the games listed in the app.
+
+Originally this project was developed by Matthew Heck, Braden Batman, and Chase Grainger. 
+
+Matthew created war mode, hearts mode (still in progreess), helped with sandbox mode, interface/menus, wrote tests
+
+Braden added card dragging functionality, helped with sandbox mode
+
+Chase set up application, made design, and added card layouts (feature not present in this iteration)
 
 Access to the current progression of the application can be seen in the website link.
 
