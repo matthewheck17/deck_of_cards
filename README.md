@@ -1,4 +1,4 @@
-This project featuers a simulation of a deck of playing cards. The user can move the cards freely in sandbox mode or they can play the games listed in the app.
+This application simulates a deck of playing cards. The user can move the cards freely in sandbox mode or they can play any of the games listed in the app.
 
 Originally this project was developed by Matthew Heck, Braden Batman, and Chase Grainger for our software engineering class. I have enjoyed working on this project and have continued to work on it after the class ended.
 
