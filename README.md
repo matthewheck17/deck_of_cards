@@ -1,6 +1,6 @@
 This application simulates a deck of playing cards. The user can move the cards freely in sandbox mode or they can play any of the games listed in the app.
 
-Originally this project was developed by Matthew Heck, Braden Batman, and Chase Grainger for our software engineering class, but I have continued to work on it myself over the past 9 months since the course ended.
+Originally this project was developed by Matthew Heck, Braden Batman, and Chase Grainger for our software engineering class, but I (Matthew) have continued to work on it myself over the past 9 months since the course ended.
 
 Matthew created war mode, hearts mode (still in progreess), helped with sandbox mode, interface/menus, wrote tests
 
