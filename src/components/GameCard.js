@@ -45,11 +45,12 @@ class GameCard extends React.Component{
 
   // handle a click on a card by selecting or deselecting it 
   handleClick = () => {
-    this.props.handleCardClick(this.state.cardID); //call parent handle click component which properly handle click and deal with any sibling component needs
+    if (this.props.location === "hand1"){
+      this.props.handleCardClick(this.state.cardID); //call parent handle click component which properly handle click and deal with any sibling component needs
+    }
   }
 
   render() {
-
     // define variables for card values
     var topLeftSuit;
     var topLeftValue;
@@ -138,16 +139,16 @@ class GameCard extends React.Component{
         break;
     }
 
-    var cardClass = this.state.location + " " + this.props.slot + " " + this.props.status;
+    var cardClass = this.props.location + " " + this.props.slot + " " + this.props.status;
 
     return (
       <div  >
-      {this.state.side === "back" &&
+      {this.props.side === "back" &&
         <div className={cardClass} id="back-of-card">
           <img alt="card back" src={this.props.img} draggable={false} id="back-image"/>
         </div>
       }
-      {this.state.side === "front" &&
+      {this.props.side === "front" &&
         <div className={cardClass} draggable={false} id="playing-card" onClick={this.handleClick}>
           {topLeftSuit}
           {bottomRightSuit}

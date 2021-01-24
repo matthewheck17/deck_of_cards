@@ -25,13 +25,13 @@ describe('CYCLE 1 TESTS', () => {
   configure({adapter: new Adapter()});
   it("US 1.1 - Testing that the start menu shows up and renders with the correct html elements", () => {
     const wrapper = shallow(<HeartsTable/>);
-    expect(wrapper.find("div").length).toEqual(9);
+    expect(wrapper.find("h2").length).toEqual(1);
   })
 
   it("US 1.2 - Testing that the start menu goes away after clicking on 'Begin'", () => {
     const wrapper = shallow(<HeartsTable/>);
     wrapper.find('h2').simulate('click');
-    expect(wrapper.find("div").length).toEqual(8);
+    expect(wrapper.find("h2").length).toEqual(0);
   })
   
   it("US 1.2 - Testing that player 1 is dealt a hand of the 13 cards", () => {

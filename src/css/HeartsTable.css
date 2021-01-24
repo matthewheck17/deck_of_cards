@@ -112,7 +112,7 @@ Created in US 1 */
     border-radius: 5px;
 }
 
-#play-button {
+.action-button {
     visibility: hidden;
     position: absolute;
     left: 50%;
@@ -128,12 +128,35 @@ Created in US 1 */
     font-size: 16px;
     border-radius: 7px;
     margin-top: 7px;
-  }
+}
 
-  #play-button.visible {
-      visibility: visible;
-  }
-  
-  #play-button:hover {
+#pass-instructions {
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 140px;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    color: white;
+    font-size: 20px;
+}
+
+#pass-instructions.visible {
+    visibility: visible;
+}
+
+#pass-button.visible {
+    visibility: visible;
+}
+
+#pass-button:hover {
     background-color: LightGray;
-  }
+}
+
+#play-button.visible {
+    visibility: visible;
+}
+
+#play-button:hover {
+    background-color: LightGray;
+}
