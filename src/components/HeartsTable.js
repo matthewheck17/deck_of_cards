@@ -241,6 +241,7 @@ class HeartsTable extends React.Component {
     let updatedHandID = this.state.handID; //copy card status array
     let updatedUpside = this.state.upside; //copy upside array
     let updatedCardSlots = this.state.cardSlots; //copy cardSlots array
+    let updatedCardStatus = this.state.cardStatus; //copy cardStatus array
     let selectedCard1 = this.state.cardStatus.indexOf("selected1"); // get the index of the first selected card
     let selectedCard2 = this.state.cardStatus.indexOf("selected2"); // get the index of the second selected card
 
@@ -253,6 +254,8 @@ class HeartsTable extends React.Component {
     updatedUpside[selectedCard2] = "back";
     updatedCardSlots[selectedCard1] = "card1";
     updatedCardSlots[selectedCard2] = "card2";
+    updatedCardStatus[selectedCard1] = updatedCardStatus[selectedCard1] + " passed"
+    updatedCardStatus[selectedCard2] = updatedCardStatus[selectedCard2] + " passed"
 
     //hide instructions/button
     document.getElementById("pass-instructions").classList.remove('visible'); // hide instructions
@@ -261,7 +264,8 @@ class HeartsTable extends React.Component {
     //update state arrays
     this.setState({
       gamePhase: "playing",
-      handID: updatedHandID
+      handID: updatedHandID,
+      cardStatus: updatedCardStatus 
     })
 
     this.resortH1();
@@ -272,6 +276,7 @@ class HeartsTable extends React.Component {
     let updatedHandID = this.state.handID; //copy handID array
     let updatedUpside = this.state.upside; //copy upside array
     let updatedCardSlots = this.state.cardSlots //copy cardSlots array
+    let updatedCardStatus = this.state.cardStatus; //copy cardStatus array
     const PLAYERCOUNT = 4;
     let cardIDIncrement = HANDSIZE;
     //select two random cards for each cpu and update its handID so that it gets passed
@@ -284,6 +289,8 @@ class HeartsTable extends React.Component {
       }
       updatedHandID[cpuSelect1] = hand;
       updatedHandID[cpuSelect2] = hand;
+      updatedCardStatus[cpuSelect1] = updatedCardStatus[cpuSelect1] + " passed"
+      updatedCardStatus[cpuSelect2] = updatedCardStatus[cpuSelect2] + " passed"
       for (let i = cardIDIncrement; i < cpuSelect1; i++){
         let slot = updatedCardSlots[i].substring(4);
         slot = parseInt(slot) + 1;
@@ -307,7 +314,8 @@ class HeartsTable extends React.Component {
 
     this.setState({
       handID: updatedHandID,
-      upside: updatedUpside
+      upside: updatedUpside,
+      cardStatus: updatedCardStatus
     });
   }
 
