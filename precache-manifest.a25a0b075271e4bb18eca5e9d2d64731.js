@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "487c5934938b9dce0c79a793dd22bdf1",
+    "revision": "c709f824fb3fe83bc4e9ad521c4219f7",
     "url": "/deck_of_cards/index.html"
   },
   {
-    "revision": "b2567f2293aeee38def8",
-    "url": "/deck_of_cards/static/css/main.b7dd0cf6.chunk.css"
+    "revision": "3d8ac82f9c5653e46918",
+    "url": "/deck_of_cards/static/css/main.041561b2.chunk.css"
   },
   {
     "revision": "4ca6f9f30db1e1e6dc91",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/deck_of_cards/static/js/2.cee5cb6a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b2567f2293aeee38def8",
-    "url": "/deck_of_cards/static/js/main.add18251.chunk.js"
+    "revision": "3d8ac82f9c5653e46918",
+    "url": "/deck_of_cards/static/js/main.8b25e29e.chunk.js"
   },
   {
     "revision": "471a55f50a6389ce5f45",
