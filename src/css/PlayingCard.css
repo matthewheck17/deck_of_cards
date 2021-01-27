@@ -20,6 +20,11 @@ Created before CIS 482 */
   user-select: none;
 }
 
+#card-container {
+  position: relative;
+  z-index: 0;
+}
+
 #top-left-suit {
   position: absolute;
 	top: 16%;

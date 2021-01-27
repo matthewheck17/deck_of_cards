@@ -38,23 +38,27 @@ class DraggableCard extends React.Component{
       side: this.props.side,
       deltaX: null,
       deltaY: null,
-      flipable: true
+      flipable: true,
+      getUpdatedZIndex: this.props.getUpdatedZIndex,
+      zIndex: 0
     };
   }
 
   // handles a click that wasn't dragged
   onClick = (e) => {
-    if(this.state.flipable)
-      {this.flipCard(e)}
-    else
-      {this.setState({flipable: true})}
+    if(this.state.flipable) {
+      this.flipCard(e)
+    } else {
+      this.setState({flipable: true})
+    }
   }
 
   // handles the start of a drag
   onStart = (e) => {
     this.setState({
       deltaX: e.clientX - this.state.left,
-      deltaY: e.clientY - this.state.top
+      deltaY: e.clientY - this.state.top,
+      zIndex: this.props.getUpdatedZIndex()
     })
   }
 
@@ -196,7 +200,7 @@ class DraggableCard extends React.Component{
         onDrag={this.onDrag}
         onStop={this.onStop}>
 
-      <div id="card" onClick={(e) => this.onClick(e)}>
+      <div id="card-container" onClick={(e) => this.onClick(e)} style={{zIndex: this.state.zIndex}}>
       {this.state.side === "back" &&
         <div id="back-of-card">
           <img src={this.props.img} alt="prof cardback" id="back-image" draggable={false}/>

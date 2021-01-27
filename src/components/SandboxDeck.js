@@ -10,6 +10,8 @@ import React from "react";
 // CUSTOM IMPORTS
 import DraggableCard from "./DraggableCard.js";
 
+var clickCounter = 0;
+
 class SandboxDeck extends React.Component {
 
   constructor(props) {
@@ -21,7 +23,8 @@ class SandboxDeck extends React.Component {
         ["spade","A"],["spade","2"],["spade","3"],["spade","4"],["spade","5"],["spade","6"],["spade","7"],["spade","8"],["spade","9"],["spade","10"],["spade","Jack"],["spade","Queen"],["spade","King"],
         ["heart","A"],["heart","2"],["heart","3"],["heart","4"],["heart","5"],["heart","6"],["heart","7"],["heart","8"],["heart","9"],["heart","10"],["heart","Jack"],["heart","Queen"],["heart","King"]
       ],
-      img: this.props.img
+      img: this.props.img,
+      clickCounter: 0
     }
   }
 
@@ -58,7 +61,7 @@ class SandboxDeck extends React.Component {
     let deck = [];
 
     for (let i=0; i < this.state.suitVals.length; i++) {
-      deck.push(<DraggableCard ref={'card'+i} key={i} suit={this.state.suitVals[i][0]} value={this.state.suitVals[i][1]} img={this.state.img} top={(window.innerHeight / 2) - 140} left={(window.innerWidth / 2) - 53}/>)
+      deck.push(<DraggableCard ref={'card'+i} key={i} suit={this.state.suitVals[i][0]} value={this.state.suitVals[i][1]} img={this.state.img} top={(window.innerHeight / 2) - 140} left={(window.innerWidth / 2) - 53} getUpdatedZIndex={this.getUpdatedZIndex}/>)
     }
     
     setTimeout(() =>{
@@ -68,6 +71,11 @@ class SandboxDeck extends React.Component {
     });
 
     return deck;
+  }
+
+  getUpdatedZIndex = () => {
+    clickCounter++;
+    return clickCounter;
   }
 
   render() {
