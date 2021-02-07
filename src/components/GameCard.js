@@ -40,6 +40,7 @@ class GameCard extends React.Component{
       slot: this.props.slot,
       status: this.props.status,
       playable: this.props.playable,
+      passed: this.props.passed,
       handleCardClick: this.props.handleCardClick
     };
   }
@@ -140,7 +141,7 @@ class GameCard extends React.Component{
         break;
     }
 
-    var cardClass = this.props.location + " " + this.props.slot + " " + this.props.status + " " + this.props.playable;
+    var cardClass = this.props.location + " " + this.props.slot + " " + this.props.status + " " + this.props.playable + " " + this.props.passed;
 
     return (
       <div  >

@@ -41,9 +41,11 @@ class HeartsTable extends React.Component {
     //create array to keep track of each card location
     let cardStatus = [];
     let playable = [];
+    let passed = [];
     for (let i = 0; i < DECKSIZE; i++){
       cardStatus[i] = "in-hand";
       playable[i] = "playable";
+      passed[i] = "";
     }
     
     // loop iterates the number of times that the handsize is
@@ -109,6 +111,7 @@ class HeartsTable extends React.Component {
       upside: upside,
       cardSlots: cardSlots,
       playable: playable,
+      passed: passed,
       img: this.props.img,
       menu: "showing",
       gamePhase: "passing",
@@ -153,22 +156,22 @@ class HeartsTable extends React.Component {
 
     // 4 for loops to initialize each game card component with the card suit and value taken from its respective player hand array
     for (let i=0; i < this.state.hand1.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand1[i][SUIT]} value={this.state.hand1[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand1[i][SUIT]} value={this.state.hand1[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} passed={this.state.passed[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
 
     for (let i=0; i < this.state.hand2.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand2[i][SUIT]} value={this.state.hand2[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand2[i][SUIT]} value={this.state.hand2[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} passed={this.state.passed[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
 
     for (let i=0; i < this.state.hand3.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand3[i][SUIT]} value={this.state.hand3[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand3[i][SUIT]} value={this.state.hand3[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} passed={this.state.passed[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
 
     for (let i=0; i < this.state.hand4.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand4[i][SUIT]} value={this.state.hand4[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand4[i][SUIT]} value={this.state.hand4[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} passed={this.state.passed[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
 
@@ -256,6 +259,7 @@ class HeartsTable extends React.Component {
     let updatedHandID = this.state.handID; //copy card status array
     let updatedUpside = this.state.upside; //copy upside array
     let updatedCardSlots = this.state.cardSlots; //copy cardSlots array
+    let updatedPassed = this.state.passed; //copy passed array
     let selectedCard1 = this.state.cardStatus.indexOf("selected1"); // get the index of the first selected card
     let selectedCard2 = this.state.cardStatus.indexOf("selected2"); // get the index of the second selected card
 
@@ -268,6 +272,8 @@ class HeartsTable extends React.Component {
     updatedUpside[selectedCard2] = "back";
     updatedCardSlots[selectedCard1] = "card1";
     updatedCardSlots[selectedCard2] = "card2";
+    updatedPassed[selectedCard1] = "passed";
+    updatedPassed[selectedCard2] = "passed";
 
     //hide instructions/button
     document.getElementById("pass-instructions").classList.remove('visible'); // hide instructions
@@ -276,6 +282,9 @@ class HeartsTable extends React.Component {
     //update state arrays
     this.setState({
       handID: updatedHandID,
+      upside: updatedUpside,
+      cardSlots: updatedCardSlots,
+      passed: updatedPassed,
       gamePhase: "playing"
     },
       this.resortH1()
@@ -287,6 +296,7 @@ class HeartsTable extends React.Component {
     let updatedHandID = this.state.handID; //copy handID array
     let updatedUpside = this.state.upside; //copy upside array
     let updatedCardSlots = this.state.cardSlots //copy cardSlots array
+    let updatedPassed = this.state.passed; //copy passed array
     let cardIDIncrement = HANDSIZE;
     //select two random cards for each cpu and update its handID so that it gets passed
     for (let playerIndex = 1; playerIndex < PLAYERCOUNT; playerIndex++){
@@ -311,6 +321,8 @@ class HeartsTable extends React.Component {
 
       updatedCardSlots[cpuSelect1] = "card1";
       updatedCardSlots[cpuSelect2] = "card2";
+      updatedPassed[cpuSelect1] = "passed";
+      updatedPassed[cpuSelect2] = "passed";
 
       if (playerIndex === 1) { //for the cards going to player1 update the upside to front
         updatedUpside[cpuSelect1] = "front";
@@ -321,7 +333,9 @@ class HeartsTable extends React.Component {
 
     this.setState({
       handID: updatedHandID,
-      upside: updatedUpside
+      upside: updatedUpside,
+      cardSlots: updatedCardSlots,
+      passed: updatedPassed
     });
   }
 
