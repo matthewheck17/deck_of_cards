@@ -39,6 +39,7 @@ class GameCard extends React.Component{
       location: this.props.location,   //location will be used as the classname in order to set the location of the card in css
       slot: this.props.slot,
       status: this.props.status,
+      playable: this.props.playable,
       handleCardClick: this.props.handleCardClick
     };
   }
@@ -139,7 +140,7 @@ class GameCard extends React.Component{
         break;
     }
 
-    var cardClass = this.props.location + " " + this.props.slot + " " + this.props.status;
+    var cardClass = this.props.location + " " + this.props.slot + " " + this.props.status + " " + this.props.playable;
 
     return (
       <div  >

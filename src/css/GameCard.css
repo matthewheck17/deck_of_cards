@@ -17,7 +17,6 @@ Created before CIS 482, Updated in US 1/2 */
     margin-bottom: -50px;
     left: 50%;
     margin-left: -53.625px;
-    z-index: 998;
     transition-duration: .2s;
 }
 
@@ -29,7 +28,6 @@ Created before CIS 482, Updated in US 1/2 */
     margin-left: -58px;
     top: 50%;
     margin-top: -53.625px;
-    z-index: 998;
     transition-duration: .2s;
 }
 
@@ -39,7 +37,6 @@ Created before CIS 482, Updated in US 1/2 */
     margin-top: -50px;
     left: 50%;
     margin-left: -53.625px;
-    z-index: 998;
     transition-duration: .2s;
 
 }
@@ -51,7 +48,6 @@ Created before CIS 482, Updated in US 1/2 */
     margin-right: -58px;
     top: 50%;
     margin-top: -53.625px;
-    z-index: 998;
     transition-duration: .2s;
 }
 
@@ -75,8 +71,53 @@ Created before CIS 482, Updated in US 1/2 */
     left: 50%;
     margin-bottom: -75px;
     margin-left: -53.625px;
-    z-index: 999;
+    transition-duration: .2s;
 }
+
+.hand2.played {
+    bottom: 50%;
+    left: 50%;
+    margin-bottom: -75px;
+    margin-left: -81px;
+    transition-duration: .2s;
+}
+
+.hand4.played {
+    bottom: 50%;
+    left: 50%;
+    margin-bottom: -75px;
+    margin-left: -25px;
+    transition-duration: .2s;
+}
+
+.hand3.played {
+    top: 50%;
+    left: 49.7%;
+    margin-top: -75px;
+    margin-left: -53.625px;
+    transition-duration: .2s;
+}
+
+.first-played {
+    z-index: 1;
+}
+
+.second-played {
+    z-index: 2;
+}
+
+.third-played {
+    z-index: 3;
+}
+
+.fourth-played {
+    z-index: 4;
+}
+
+#playing-card.unplayable {
+    background: #DCDCDC;
+}
+
 
 .hand1.card1 {
     margin-left: -240.125px;

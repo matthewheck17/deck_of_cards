@@ -2,7 +2,7 @@
 
 // This file contains all necessary items for the HeartsTable Component
 
-// Created in US 1 - Updated in US 2
+// Created in US 1 - Updated in US 5
 
 // SYSTEM IMPORTS
 import React from "react";
@@ -14,6 +14,11 @@ import HeartsLogo from "../images/hearts/hearts-logo.png";
 
 const HANDSIZE = 13;
 const DECKSIZE = 52;
+const PLAYERCOUNT = 4;
+const SUIT = 0;
+const VALUE = 1;
+const COMP = 2;
+const USER = 1;
 
 class HeartsTable extends React.Component {
 
@@ -35,8 +40,10 @@ class HeartsTable extends React.Component {
 
     //create array to keep track of each card location
     let cardStatus = [];
+    let playable = [];
     for (let i = 0; i < DECKSIZE; i++){
       cardStatus[i] = "in-hand";
+      playable[i] = "playable";
     }
     
     // loop iterates the number of times that the handsize is
@@ -101,9 +108,16 @@ class HeartsTable extends React.Component {
       handID: handID,
       upside: upside,
       cardSlots: cardSlots,
+      playable: playable,
       img: this.props.img,
       menu: "showing",
-      gamePhase: "passing"
+      gamePhase: "passing",
+      playerTurn: null,
+      completedRounds: 0,
+      playedThisRound: 0,
+      startedRoundPlayer: null,
+      leadSuit: null,
+      userCardPlayed: false
     }
     this.handleCardClick = this.handleCardClick.bind(this);
     this.playCard = this.playCard.bind(this);
@@ -120,7 +134,7 @@ class HeartsTable extends React.Component {
   sortHand = (hand) => {
     for (let i = hand.length-1; i>=0; i--){
       for(let j = 1; j<=i; j++){
-        if(hand[j-1][2] > hand[j][2]){
+        if(hand[j-1][COMP] > hand[j][2]){
           let temp = hand[j-1];
           hand[j-1] = hand[j];
           hand[j] = temp;
@@ -139,25 +153,24 @@ class HeartsTable extends React.Component {
 
     // 4 for loops to initialize each game card component with the card suit and value taken from its respective player hand array
     for (let i=0; i < this.state.hand1.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand1[i][0]} value={this.state.hand1[i][1]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand1[i][SUIT]} value={this.state.hand1[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
 
     for (let i=0; i < this.state.hand2.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand2[i][0]} value={this.state.hand2[i][1]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand2[i][SUIT]} value={this.state.hand2[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
 
     for (let i=0; i < this.state.hand3.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand3[i][0]} value={this.state.hand3[i][1]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand3[i][SUIT]} value={this.state.hand3[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
 
     for (let i=0; i < this.state.hand4.length; i++) {
-      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand4[i][0]} value={this.state.hand4[i][1]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
+      cards.push(<GameCard key={cardIDIndex} cardID={cardIDIndex} suit={this.state.hand4[i][SUIT]} value={this.state.hand4[i][VALUE]} img={this.state.img} side={this.state.upside[cardIDIndex]} location={this.state.handID[cardIDIndex]} slot={this.state.cardSlots[cardIDIndex]} status={this.state.cardStatus[cardIDIndex]} playable={this.state.playable[cardIDIndex]} handleCardClick={this.handleCardClick}/>)
       cardIDIndex++;
     }
-
 
     return cards;
   }
@@ -197,20 +210,22 @@ class HeartsTable extends React.Component {
       }
 
     } else if (this.state.gamePhase === "playing"){
-      if (this.state.cardSlots[clickedCardID] === "played"){
-        return;  //don't select if card has already been played
+      if (this.state.cardSlots[clickedCardID] === "played" || this.state.playerTurn !== USER){
+        return;  //don't select if card has already been played or if it is not the user's turn
       }
 
-      if (updatedCardStatus[clickedCardID] === "selected"){
-        updatedCardStatus[clickedCardID] = "in-hand";
-        document.getElementById("play-button").classList.remove('visible'); // hide play card button
-      } else if (updatedCardStatus[clickedCardID] === "in-hand"){
-        while (updatedCardStatus.includes("selected")){
-          let selectedIndex = updatedCardStatus.indexOf("selected");
-          updatedCardStatus[selectedIndex] = "in-hand";
+      if (this.state.playable[clickedCardID] === "playable"){
+        if (updatedCardStatus[clickedCardID] === "selected"){
+          updatedCardStatus[clickedCardID] = "in-hand";
+          document.getElementById("play-button").classList.remove('visible'); // hide play card button
+        } else if (updatedCardStatus[clickedCardID] === "in-hand"){
+          while (updatedCardStatus.includes("selected")){
+            let selectedIndex = updatedCardStatus.indexOf("selected");
+            updatedCardStatus[selectedIndex] = "in-hand";
+          }
+          updatedCardStatus[clickedCardID] = "selected";
+          document.getElementById("play-button").classList.add('visible'); // show play card button
         }
-        updatedCardStatus[clickedCardID] = "selected";
-        document.getElementById("play-button").classList.add('visible'); // show play card button
       }
     }
 
@@ -241,7 +256,6 @@ class HeartsTable extends React.Component {
     let updatedHandID = this.state.handID; //copy card status array
     let updatedUpside = this.state.upside; //copy upside array
     let updatedCardSlots = this.state.cardSlots; //copy cardSlots array
-    let updatedCardStatus = this.state.cardStatus; //copy cardStatus array
     let selectedCard1 = this.state.cardStatus.indexOf("selected1"); // get the index of the first selected card
     let selectedCard2 = this.state.cardStatus.indexOf("selected2"); // get the index of the second selected card
 
@@ -254,8 +268,6 @@ class HeartsTable extends React.Component {
     updatedUpside[selectedCard2] = "back";
     updatedCardSlots[selectedCard1] = "card1";
     updatedCardSlots[selectedCard2] = "card2";
-    updatedCardStatus[selectedCard1] = updatedCardStatus[selectedCard1] + " passed"
-    updatedCardStatus[selectedCard2] = updatedCardStatus[selectedCard2] + " passed"
 
     //hide instructions/button
     document.getElementById("pass-instructions").classList.remove('visible'); // hide instructions
@@ -263,12 +275,11 @@ class HeartsTable extends React.Component {
     
     //update state arrays
     this.setState({
-      gamePhase: "playing",
       handID: updatedHandID,
-      cardStatus: updatedCardStatus 
-    })
-
-    this.resortH1();
+      gamePhase: "playing"
+    },
+      this.resortH1()
+    );
   }
 
   //handles selecting and passing cards for computer players
@@ -276,8 +287,6 @@ class HeartsTable extends React.Component {
     let updatedHandID = this.state.handID; //copy handID array
     let updatedUpside = this.state.upside; //copy upside array
     let updatedCardSlots = this.state.cardSlots //copy cardSlots array
-    let updatedCardStatus = this.state.cardStatus; //copy cardStatus array
-    const PLAYERCOUNT = 4;
     let cardIDIncrement = HANDSIZE;
     //select two random cards for each cpu and update its handID so that it gets passed
     for (let playerIndex = 1; playerIndex < PLAYERCOUNT; playerIndex++){
@@ -289,8 +298,6 @@ class HeartsTable extends React.Component {
       }
       updatedHandID[cpuSelect1] = hand;
       updatedHandID[cpuSelect2] = hand;
-      updatedCardStatus[cpuSelect1] = updatedCardStatus[cpuSelect1] + " passed"
-      updatedCardStatus[cpuSelect2] = updatedCardStatus[cpuSelect2] + " passed"
       for (let i = cardIDIncrement; i < cpuSelect1; i++){
         let slot = updatedCardSlots[i].substring(4);
         slot = parseInt(slot) + 1;
@@ -314,9 +321,35 @@ class HeartsTable extends React.Component {
 
     this.setState({
       handID: updatedHandID,
-      upside: updatedUpside,
-      cardStatus: updatedCardStatus
+      upside: updatedUpside
     });
+  }
+
+  //handles playing a card for computer players
+  playCPUCards(playableCardIndices) {
+    let updatedCardSlots = this.state.cardSlots; // create array to hold updated card slots
+    let updatedUpside = this.state.upside; // create array to hold updated card slots
+    let playIndex = Math.floor(Math.random() * Math.floor(playableCardIndices.length)); //get random index from playable cards
+    updatedUpside[playableCardIndices[playIndex]] = "front";
+
+    let newSlot = "played";
+    
+    if (this.state.playedThisRound === 0){
+      newSlot += " first-played"
+    } else if (this.state.playedThisRound === 1){
+      newSlot += " second-played"
+    } else if (this.state.playedThisRound === 2){
+      newSlot += " third-played"
+    } else if (this.state.playedThisRound === 3){
+      newSlot += " fourth-played"
+    }
+
+    updatedCardSlots[playableCardIndices[playIndex]] = newSlot;
+
+    this.setState({
+      cardSlots: updatedCardSlots,
+      upside: updatedUpside
+    })
   }
 
   //this is a function to resort the cards in hand1
@@ -338,7 +371,7 @@ class HeartsTable extends React.Component {
 
     let h1SortedIndexes = [];
     for (let i = 0; i < newH1.length; i++){ 
-      h1SortedIndexes.push(this.getIndexBySuitVal(newH1[i])); //change the sorted cards into their sorted cardIndexes
+      h1SortedIndexes.push(this.getIndexBySuitCard(newH1[i])); //change the sorted cards into their sorted cardIndexes
     }
 
 
@@ -349,18 +382,45 @@ class HeartsTable extends React.Component {
     this.setState({
       cardSlots: updatedCardSlots
     });
-    
+    this.playTurn();
+  }
+
+  // given a card, this function returns the index of the card in the allHands array
+  getIndexBySuitCard(card) {
+    for (let i = 0; i<DECKSIZE; i++){
+      if (card[2] === this.state.allHands[i][2]){
+        return i;
+      }
+    }
   }
 
   // This function handles a click on the play card button.
   // it will cause the selected card to move from the player's hand to the center of the table
-  // and it will cause remaining cards to shift towards the center of the player's hand
   playCard() {
     let selectedCard = this.state.cardStatus.indexOf("selected"); // get the index of the selected card
-    let cardsToShift = []; //initialize empty array to hold the card #'s of the cards that need shifted
     let cardSlots = this.state.cardSlots; // create array to hold updated card slots
+    let newSlot = "played";
 
-    if (selectedCard < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
+    if (this.state.playedThisRound === 0){
+      newSlot += " first-played"
+    } else if (this.state.playedThisRound === 1){
+      newSlot += " second-played"
+    } else if (this.state.playedThisRound === 2){
+      newSlot += " third-played"
+    } else if (this.state.playedThisRound === 3){
+      newSlot += " fourth-played"
+    }
+
+    cardSlots[selectedCard] = newSlot; //mark selected card as played
+
+    this.setState({
+      cardSlots: cardSlots,
+      userCardPlayed: true
+    })
+  }
+
+  shiftCardsToCenter () {
+    /*if (selectedCard < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
       for (let index = 0; index < selectedCard; index++){
         cardsToShift[index] = index; //fill out array from 0 to the last card that needs shifted
       }
@@ -392,20 +452,171 @@ class HeartsTable extends React.Component {
         }
         cardsToShift.shift(); //remove first element from cardsToShift
       }
+    }*/
+  }
+
+  // This function handles any given player's turn
+  // while a round is still in progress calls itself once the turn before is completed
+  playTurn = () => {
+    let updatedGamePhase = this.state.gamePhase;
+    let updatedCardSlots = this.state.cardSlots;
+    let updatedUpside = this.state.upside;
+    let nextPlayer = "";
+    let leadSuit = this.state.leadSuit;
+    let startedRoundPlayer = this.state.startedRoundPlayer;
+    let playableCardIndices = [];
+
+    if (this.state.playedThisRound === 0){
+      updatedGamePhase = "playing";
+      let twoOfClubsIndex = this.findTwoOfClubs();
+      startedRoundPlayer = this.state.handID[twoOfClubsIndex].substr(-1);
+      if (parseInt(startedRoundPlayer) === USER){
+        let updatedPlayable = this.setUnplayable();
+        if (!this.state.userCardPlayed){  //if user hasn't played yet
+        setTimeout(()=> {
+          this.setState({
+            playable: updatedPlayable,
+            playerTurn: USER //update playerTurn to user so they can select cards
+          },
+            this.playTurn //callback function, will run when state is set
+          )
+        }, 1000);
+          return;
+        }
+        this.removeUnplayable();
+      }
+      nextPlayer = parseInt(startedRoundPlayer)%PLAYERCOUNT+1; //get the next player up
+      updatedCardSlots[twoOfClubsIndex] = "played";
+      updatedUpside[twoOfClubsIndex] = "front";
+      leadSuit = "club";
+    } else {
+      if (this.state.playerTurn === 1){
+        let updatedPlayable = this.setUnplayable();
+        if (!this.state.userCardPlayed){  //if user hasn't played yet
+          setTimeout(()=> {
+            this.setState({
+              playable: updatedPlayable
+            },
+              this.playTurn //callback function, will run when state is set
+            )
+          }, 1000);
+          return;
+        }
+        this.removeUnplayable();
+      } else if (this.state.playerTurn === 2){
+        playableCardIndices = this.getPlayableCards(2, this.state.leadSuit);
+        this.playCPUCards(playableCardIndices);
+      } else if (this.state.playerTurn === 3){
+        playableCardIndices = this.getPlayableCards(3, this.state.leadSuit);
+        this.playCPUCards(playableCardIndices);
+      } else if (this.state.playerTurn === 4){
+        playableCardIndices = this.getPlayableCards(4, this.state.leadSuit);
+        this.playCPUCards(playableCardIndices);
+      }
+      nextPlayer = this.state.playerTurn%PLAYERCOUNT +1;
+    }
+    
+    if (nextPlayer !== parseInt(this.state.startedRoundPlayer)){ //if its not the end of the round
+      setTimeout(()=> {
+        this.setState({
+          gamePhase: updatedGamePhase,
+          upside: updatedUpside,
+          cardSlots: updatedCardSlots,
+          playerTurn: nextPlayer,
+          leadSuit: leadSuit,
+          startedRoundPlayer: startedRoundPlayer,
+          playedThisRound: this.state.playedThisRound+1
+        },
+          this.playTurn //callback function, will run when state is set
+        )
+      }, 1000);
+    } else { //if the round ended
+      this.setState({
+        gamePhase: updatedGamePhase,
+        upside: updatedUpside,
+        cardSlots: updatedCardSlots,
+        completedRounds: this.state.completedRounds+1,
+        playerTurn: nextPlayer,
+        leadSuit: leadSuit,
+        startedRoundPlayer: startedRoundPlayer,
+        playedThisRound: 0
+      });
+    }
+  }
+
+  findTwoOfClubs() {
+    let allHandsCopy = this.state.allHands;
+
+    for (let index = 0; index < allHandsCopy.length; index++){
+      if (allHandsCopy[index][SUIT] === "club" && allHandsCopy[index][VALUE] === "2"){
+        return index;
+      }
+    }
+  }
+
+  getPlayableCards = (handID, leadSuit) => {
+    let playableCardsIndices = [];
+    for (let index = 0; index < this.state.allHands.length; index++){
+      if (this.state.allHands[index][SUIT] === leadSuit  && this.state.handID[index] === "hand"+handID){
+        playableCardsIndices.push(index);
+      }
+    }
+    if (playableCardsIndices.length === 0){ //if the player can't follow suit
+      for (let index = 0; index < this.state.allHands.length; index++){
+        if (this.state.completedRounds === 0) { //if it is the first round, hearts/queen of spades are unplayable
+          if (this.state.allHands[index][SUIT] !== "heart"  && this.state.handID[index] === "hand"+handID){ //if not a heart
+            if (this.state.allHands[index][SUIT] === "spade" && this.state.allHands[index][VALUE] === "Queen"){ 
+              continue; //skip if queen of spades
+            }
+            playableCardsIndices.push(index);
+          }
+        } else { //if it is not the first round, any card in hand is playable and added to the array
+          if (this.state.handID[index] === "hand"+handID){
+            playableCardsIndices.push(index);
+          }
+        }
+      }
+    }
+    return playableCardsIndices;
+  }
+
+  setUnplayable(){
+    let updatedPlayable = this.state.playable;
+    let allHand1Cards = [];
+    for (let index = 0; index < this.state.handID.length; index++){
+      if (this.state.handID[index] === "hand1"){
+        allHand1Cards.push(index);
+        updatedPlayable[index] = "unplayable"; //set all to unplayable
+      }
+    }
+
+    let playableHand1Cards = [];
+
+    if (this.state.completedRounds === 0 && this.state.playedThisRound === 0){
+      playableHand1Cards.push(this.findTwoOfClubs());
+    } else {
+      playableHand1Cards = this.getPlayableCards(USER, this.state.leadSuit);
+    }
+
+    
+    for (let index = 0; index < playableHand1Cards.length; index++) {
+      updatedPlayable[playableHand1Cards[index]] = "playable";
+    }
+
+    return updatedPlayable;
+  }
+
+  removeUnplayable(){
+    let updatedPlayable = this.state.playable;
+    for (let index = 0; index < updatedPlayable.length; index++){
+      if (updatedPlayable[index] === "unplayable"){
+        updatedPlayable[index] = "playable";
+      }
     }
 
     this.setState({
-      cardSlots: cardSlots
-    })
-  }
-
-  // given a card, this function returns the index of the card in the allHands array
-  getIndexBySuitVal(card) {
-    for (let i = 0; i<DECKSIZE; i++){
-      if (card[2] === this.state.allHands[i][2]){
-        return i;
-      }
-    }
+      playable: updatedPlayable
+    });
   }
 
 
