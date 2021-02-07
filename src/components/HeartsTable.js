@@ -398,7 +398,7 @@ class HeartsTable extends React.Component {
   // it will cause the selected card to move from the player's hand to the center of the table
   playCard() {
     let selectedCard = this.state.cardStatus.indexOf("selected"); // get the index of the selected card
-    let cardSlots = this.state.cardSlots; // create array to hold updated card slots
+    let updatedCardSlots = this.state.cardSlots; // create array to hold updated card slots
     let newSlot = "played";
 
     if (this.state.playedThisRound === 0){
@@ -411,16 +411,47 @@ class HeartsTable extends React.Component {
       newSlot += " fourth-played"
     }
 
-    cardSlots[selectedCard] = newSlot; //mark selected card as played
+    this.shiftCardsToCenter(this.state.cardSlots[selectedCard].substring(4), "hand1"); //pass the slot number of the selected card
+
+    updatedCardSlots[selectedCard] = newSlot; //mark selected card as played
 
     this.setState({
-      cardSlots: cardSlots,
+      cardSlots: updatedCardSlots,
       userCardPlayed: true
     })
   }
 
-  shiftCardsToCenter () {
-    /*if (selectedCard < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
+  shiftCardsToCenter (slotNumber, handID) {
+    let handCardIndices = [];
+    let updatedCardSlots = this.state.cardSlots;
+    for (let index = 0; index < this.state.handID.length; index++){
+      if (this.state.handID[index] === handID){
+        handCardIndices.push(index);
+      }
+    }
+    console.log(handCardIndices);
+    console.log(slotNumber);
+
+    if (slotNumber < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
+      for (let index = 0; index < handCardIndices.length; index++){
+        if (parseInt(updatedCardSlots[handCardIndices[index]].substring(4)) < slotNumber){ //check if slot is less than selected card
+          let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(4);
+          let newSlot = parseInt(oldSlotNumber) + 1;
+          newSlot = "card" + newSlot;
+          updatedCardSlots[handCardIndices[index]] = newSlot; 
+        }
+      }
+    } else {
+      for (let index = 0; index < handCardIndices.length; index++){
+        if (parseInt(updatedCardSlots[handCardIndices[index]].substring(4)) > slotNumber){ //check if slot is less than selected card
+          let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(4);
+          let newSlot = parseInt(oldSlotNumber) - 1;
+          newSlot = "card" + newSlot;
+          updatedCardSlots[handCardIndices[index]] = newSlot; 
+        }
+      }
+    }
+    /*if (slotNumber < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
       for (let index = 0; index < selectedCard; index++){
         cardsToShift[index] = index; //fill out array from 0 to the last card that needs shifted
       }
@@ -453,6 +484,10 @@ class HeartsTable extends React.Component {
         cardsToShift.shift(); //remove first element from cardsToShift
       }
     }*/
+
+    this.setState({
+      cardSlots: updatedCardSlots
+    })
   }
 
   // This function handles any given player's turn
