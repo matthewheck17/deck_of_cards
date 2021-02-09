@@ -8,7 +8,7 @@ exports[`CYCLE 1 TESTS US 1.1 - Testing that the Hearts Table component renders 
     <div>
       <div>
         <div
-          class="deck undefined undefined undefined"
+          class="deck undefined undefined undefined undefined"
           id="back-of-card"
         >
           <img

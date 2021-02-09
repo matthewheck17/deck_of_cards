@@ -116,11 +116,11 @@ class HeartsTable extends React.Component {
       menu: "showing",
       gamePhase: "passing",
       playerTurn: null,
-      completedRounds: 0,
-      playedThisRound: 0,
-      startedRoundPlayer: null,
-      leadSuit: null,
-      userCardPlayed: false
+      completedRounds: 0, //number of completed rounds
+      playedThisRound: 0, //number of cards played in a given round
+      startedRoundPlayer: null, //index of the player who started the round
+      leadSuit: null, //suit of the lead card
+      userCardPlayed: false //keep track of if the user has played this round yet
     }
     this.handleCardClick = this.handleCardClick.bind(this);
     this.playCard = this.playCard.bind(this);
@@ -435,23 +435,22 @@ class HeartsTable extends React.Component {
     })
   }
 
+  // This is a function that takes the slot number and the handID of a given card and causes the cards outside of it to shift inwards
   shiftCardsToCenter (slotNumber, handID) {
     let handCardIndices = [];
     let updatedCardSlots = this.state.cardSlots;
     for (let index = 0; index < this.state.handID.length; index++){
       if (this.state.handID[index] === handID){
-        handCardIndices.push(index);
+        handCardIndices.push(index); //get all cards in the given hand
       }
     }
-    console.log(handCardIndices);
-    console.log(slotNumber);
 
     if (slotNumber < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
       for (let index = 0; index < handCardIndices.length; index++){
         if (parseInt(updatedCardSlots[handCardIndices[index]].substring(4)) < slotNumber){ //check if slot is less than selected card
           let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(4);
           let newSlot = parseInt(oldSlotNumber) + 1;
-          newSlot = "card" + newSlot;
+          newSlot = "card" + newSlot; //increment slot
           updatedCardSlots[handCardIndices[index]] = newSlot; 
         }
       }
@@ -460,44 +459,11 @@ class HeartsTable extends React.Component {
         if (parseInt(updatedCardSlots[handCardIndices[index]].substring(4)) > slotNumber){ //check if slot is less than selected card
           let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(4);
           let newSlot = parseInt(oldSlotNumber) - 1;
-          newSlot = "card" + newSlot;
+          newSlot = "card" + newSlot;//decriment slot
           updatedCardSlots[handCardIndices[index]] = newSlot; 
         }
       }
     }
-    /*if (slotNumber < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
-      for (let index = 0; index < selectedCard; index++){
-        cardsToShift[index] = index; //fill out array from 0 to the last card that needs shifted
-      }
-
-      cardSlots[selectedCard] = "played"; //mark selected card as played
-      let totalCardsToShift = cardsToShift.length;
-
-      for (let index = 0; index < totalCardsToShift; index++){
-        if (cardSlots[cardsToShift[0]] !== "played"){  //if the card has not already been played
-          let currentCardSlot = cardSlots[cardsToShift[0]].split('d').pop();  // this will get the number of the slot currently
-          cardSlots[cardsToShift[0]] = "card" + (parseInt(currentCardSlot) + 1);
-        }
-        cardsToShift.shift(); //remove first element from cardsToShift
-      }
-
-    } else { // selected card is right of center
-
-      for (let index = 0; index + parseInt(selectedCard) + 1 < HANDSIZE; index++){
-        cardsToShift[index] = index + parseInt(selectedCard) + 1; //fill out array from 1 + selected to 12 (last card)
-      }
-
-      cardSlots[selectedCard] = "played"; //mark selected card as played
-      let totalCardsToShift = cardsToShift.length;
-
-      for (let index = 0; index < totalCardsToShift; index++){
-        if (cardSlots[cardsToShift[0]] !== "played"){  //if the card has not already been played
-          let currentCardSlot = cardSlots[cardsToShift[0]].split('d').pop();  // this will get the number of the slot currently
-          cardSlots[cardsToShift[0]] = "card" + (parseInt(currentCardSlot) - 1);
-        }
-        cardsToShift.shift(); //remove first element from cardsToShift
-      }
-    }*/
 
     this.setState({
       cardSlots: updatedCardSlots
@@ -593,6 +559,7 @@ class HeartsTable extends React.Component {
     }
   }
 
+  // This function finds the index of the two of clubs
   findTwoOfClubs() {
     let allHandsCopy = this.state.allHands;
 
@@ -603,6 +570,7 @@ class HeartsTable extends React.Component {
     }
   }
 
+  // given a hand and a leadSuit, this function will return the indices of all playable cards for the given hand
   getPlayableCards = (handID, leadSuit) => {
     let playableCardsIndices = [];
     for (let index = 0; index < this.state.allHands.length; index++){
@@ -629,6 +597,7 @@ class HeartsTable extends React.Component {
     return playableCardsIndices;
   }
 
+  //This function sets the unplayable cards' state to unplayable so they become darkened
   setUnplayable(){
     let updatedPlayable = this.state.playable;
     let allHand1Cards = [];
@@ -655,6 +624,7 @@ class HeartsTable extends React.Component {
     return updatedPlayable;
   }
 
+  //This function removes the unplayable state from all cards
   removeUnplayable(){
     let updatedPlayable = this.state.playable;
     for (let index = 0; index < updatedPlayable.length; index++){
