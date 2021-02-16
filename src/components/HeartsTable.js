@@ -2,7 +2,7 @@
 
 // This file contains all necessary items for the HeartsTable Component
 
-// Created in US 1 - Updated in US 5
+// Created in US 1 - Updated in US 6
 
 // SYSTEM IMPORTS
 import React from "react";
@@ -11,6 +11,7 @@ import React from "react";
 import GameCard from "./GameCard.js";
 import "../css/HeartsTable.css";
 import HeartsLogo from "../images/hearts/hearts-logo.png";
+import LeadChip from "./LeadChip.js";
 
 const HANDSIZE = 13;
 const DECKSIZE = 52;
@@ -278,6 +279,9 @@ class HeartsTable extends React.Component {
     //hide instructions/button
     document.getElementById("pass-instructions").classList.remove('visible'); // hide instructions
     document.getElementById("pass-button").classList.remove('visible'); // hide pass cards button
+
+    let twoOfClubsIndex = this.state.handID[this.findTwoOfClubs()];
+    let twoOfClubsHandIndex = twoOfClubsIndex.charAt(twoOfClubsIndex.length-1);
     
     //update state arrays
     this.setState({
@@ -285,7 +289,8 @@ class HeartsTable extends React.Component {
       upside: updatedUpside,
       cardSlots: updatedCardSlots,
       passed: updatedPassed,
-      gamePhase: "playing"
+      gamePhase: "playing",
+      startedRoundPlayer: twoOfClubsHandIndex
     },
       this.resortH1()
     );
@@ -669,6 +674,7 @@ class HeartsTable extends React.Component {
         {this.state.menu === "notShowing" &&
           <div>
             {this.renderCards()}
+            <LeadChip ref={"lead-chip"} key={"lead-chip"} location={this.state.startedRoundPlayer} />
             <div id="pass-instructions" className="visible">Choose two cards to pass to your opponent... </div>
           </div>
         }
