@@ -20,6 +20,10 @@ const SUIT = 0;
 const VALUE = 1;
 const COMP = 2;
 const USER = 1;
+const PLAYER1 = 0;
+const PLAYER2 = 1;
+const PLAYER3 = 2;
+const PLAYER4 = 3;
 
 class HeartsTable extends React.Component {
 
@@ -100,6 +104,12 @@ class HeartsTable extends React.Component {
       upside[i+3*HANDSIZE] = "back";
     }
 
+    let activeHand = [];
+    activeHand[PLAYER1] = "inactive"; //set each player to inactive
+    activeHand[PLAYER2] = "inactive";
+    activeHand[PLAYER3] = "inactive";
+    activeHand[PLAYER4] = "inactive";
+
     //set the state of the component
     this.state = {
       hand1: hand1,
@@ -121,7 +131,8 @@ class HeartsTable extends React.Component {
       playedThisRound: 0, //number of cards played in a given round
       startedRoundPlayer: null, //index of the player who started the round
       leadSuit: null, //suit of the lead card
-      userCardPlayed: false //keep track of if the user has played this round yet
+      userCardPlayed: false, //keep track of if the user has played this round yet
+      activeHand: activeHand //keep track of which hand is up to play so that the border can be highlighted accordingly
     }
     this.handleCardClick = this.handleCardClick.bind(this);
     this.playCard = this.playCard.bind(this);
@@ -261,6 +272,7 @@ class HeartsTable extends React.Component {
     let updatedUpside = this.state.upside; //copy upside array
     let updatedCardSlots = this.state.cardSlots; //copy cardSlots array
     let updatedPassed = this.state.passed; //copy passed array
+    let updatedActiveHand = this.state.activeHand; //copy activeHand array
     let selectedCard1 = this.state.cardStatus.indexOf("selected1"); // get the index of the first selected card
     let selectedCard2 = this.state.cardStatus.indexOf("selected2"); // get the index of the second selected card
 
@@ -282,6 +294,8 @@ class HeartsTable extends React.Component {
 
     let twoOfClubsIndex = this.state.handID[this.findTwoOfClubs()];
     let twoOfClubsHandIndex = twoOfClubsIndex.charAt(twoOfClubsIndex.length-1);
+
+    updatedActiveHand[twoOfClubsHandIndex-1] = "active";
     
     //update state arrays
     this.setState({
@@ -290,7 +304,8 @@ class HeartsTable extends React.Component {
       cardSlots: updatedCardSlots,
       passed: updatedPassed,
       gamePhase: "playing",
-      startedRoundPlayer: twoOfClubsHandIndex
+      startedRoundPlayer: twoOfClubsHandIndex,
+      activeHand: updatedActiveHand
     },
       this.resortH1()
     );
@@ -481,6 +496,7 @@ class HeartsTable extends React.Component {
     let updatedGamePhase = this.state.gamePhase;
     let updatedCardSlots = this.state.cardSlots;
     let updatedUpside = this.state.upside;
+    let updatedActiveHand = this.state.activeHand;
     let nextPlayer = "";
     let leadSuit = this.state.leadSuit;
     let startedRoundPlayer = this.state.startedRoundPlayer;
@@ -500,7 +516,7 @@ class HeartsTable extends React.Component {
           },
             this.playTurn //callback function, will run when state is set
           )
-        }, 1000);
+        }, 100);
           return;
         }
         this.removeUnplayable();
@@ -510,7 +526,7 @@ class HeartsTable extends React.Component {
       updatedUpside[twoOfClubsIndex] = "front";
       leadSuit = "club";
     } else {
-      if (this.state.playerTurn === 1){
+      if (this.state.playerTurn === USER){
         let updatedPlayable = this.setUnplayable();
         if (!this.state.userCardPlayed){  //if user hasn't played yet
           setTimeout(()=> {
@@ -519,7 +535,7 @@ class HeartsTable extends React.Component {
             },
               this.playTurn //callback function, will run when state is set
             )
-          }, 1000);
+          }, 100);
           return;
         }
         this.removeUnplayable();
@@ -535,8 +551,20 @@ class HeartsTable extends React.Component {
       }
       nextPlayer = this.state.playerTurn%PLAYERCOUNT +1;
     }
-    
+
+    if (this.state.playedThisRound === 0) {
+      updatedActiveHand[startedRoundPlayer-1] = "inactive"; //set player who completed this turn to inactive
+    } else {
+      updatedActiveHand[this.state.playerTurn-1] = "inactive"; //set player who completed this turn to inactive
+    }
+
     if (nextPlayer !== parseInt(this.state.startedRoundPlayer)){ //if its not the end of the round
+      updatedActiveHand[nextPlayer-1] = "active"; //set the next player to active if the round's not over
+      let timeoutVal = 1000;
+      if (nextPlayer === USER){
+        timeoutVal = 1;
+      }
+
       setTimeout(()=> {
         this.setState({
           gamePhase: updatedGamePhase,
@@ -545,21 +573,23 @@ class HeartsTable extends React.Component {
           playerTurn: nextPlayer,
           leadSuit: leadSuit,
           startedRoundPlayer: startedRoundPlayer,
-          playedThisRound: this.state.playedThisRound+1
+          playedThisRound: this.state.playedThisRound+1,
+          activeHand: updatedActiveHand
         },
           this.playTurn //callback function, will run when state is set
         )
-      }, 1000);
+      }, timeoutVal);
     } else { //if the round ended
       this.setState({
         gamePhase: updatedGamePhase,
         upside: updatedUpside,
         cardSlots: updatedCardSlots,
         completedRounds: this.state.completedRounds+1,
-        playerTurn: nextPlayer,
+        playerTurn: null,
         leadSuit: leadSuit,
         startedRoundPlayer: startedRoundPlayer,
-        playedThisRound: 0
+        playedThisRound: 0,
+        activeHand: updatedActiveHand
       });
     }
   }
@@ -660,13 +690,13 @@ class HeartsTable extends React.Component {
           <img id="hearts-logo" src={HeartsLogo} href="hearts-logo" alt="heart"/>
         </div>
 
-        <div id="player1-hand" className="player-hand"></div>
+        <div id="player1-hand" className={"player-hand " + this.state.activeHand[PLAYER1]}></div>
 
-        <div id="player2-hand" className="player-hand"></div>
+        <div id="player2-hand" className={"player-hand " + this.state.activeHand[PLAYER2]}></div>
 
-        <div id="player3-hand" className="player-hand"></div>
+        <div id="player3-hand" className={"player-hand " + this.state.activeHand[PLAYER3]}></div>
 
-        <div id="player4-hand" className="player-hand"></div>
+        <div id="player4-hand" className={"player-hand " + this.state.activeHand[PLAYER4]}></div>
 
         <div id="pass-button" className="action-button" onClick={this.passCards}>Pass Cards</div>
         <div id="play-button" className="action-button" onClick={this.playCard}>Play Card</div>

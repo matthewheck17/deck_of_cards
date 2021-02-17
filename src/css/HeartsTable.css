@@ -68,6 +68,10 @@ Created in US 1 */
     position: absolute;
 }
 
+.player-hand.active {
+    border: 2px solid #faed27 !important;
+}
+
 #player1-hand {
     bottom: 0;
     left: 50%;
