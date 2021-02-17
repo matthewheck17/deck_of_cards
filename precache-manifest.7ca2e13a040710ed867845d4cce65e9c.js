@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5f16e4402493dd08d521120909eb0a20",
+    "revision": "4073272af3b0c641db0820c5852862c6",
     "url": "/deck_of_cards/index.html"
   },
   {
-    "revision": "329ad15c7be5a814c714",
-    "url": "/deck_of_cards/static/css/main.44ce6d6e.chunk.css"
+    "revision": "382b13a676df467ca6e8",
+    "url": "/deck_of_cards/static/css/main.a2942278.chunk.css"
   },
   {
-    "revision": "4ca6f9f30db1e1e6dc91",
-    "url": "/deck_of_cards/static/js/2.cee5cb6a.chunk.js"
+    "revision": "6dabf0503f3c2dbf3a2f",
+    "url": "/deck_of_cards/static/js/2.26957388.chunk.js"
   },
   {
     "revision": "5ac48c47bb3912b14c2d8de4f56d5ae8",
-    "url": "/deck_of_cards/static/js/2.cee5cb6a.chunk.js.LICENSE.txt"
+    "url": "/deck_of_cards/static/js/2.26957388.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "329ad15c7be5a814c714",
-    "url": "/deck_of_cards/static/js/main.92dffc8b.chunk.js"
+    "revision": "382b13a676df467ca6e8",
+    "url": "/deck_of_cards/static/js/main.ab3df8ef.chunk.js"
   },
   {
     "revision": "471a55f50a6389ce5f45",
@@ -26,6 +26,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "514b6d4056efbe8c0601deb2028cf30f",
     "url": "/deck_of_cards/static/media/flavortown.514b6d40.PNG"
+  },
+  {
+    "revision": "24bcf6ca4d4d3d5ffc71974dd1725ab6",
+    "url": "/deck_of_cards/static/media/lead-chip.24bcf6ca.png"
   },
   {
     "revision": "040c854aa05c07d6de75ea261b251aa0",
