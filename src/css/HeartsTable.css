@@ -149,6 +149,16 @@ Created in US 1 */
     visibility: visible;
 }
 
+#round-end-message {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 140px;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    color: white;
+    font-size: 20px;
+}
+
 #pass-button.visible {
     visibility: visible;
 }
@@ -163,4 +173,8 @@ Created in US 1 */
 
 #play-button:hover {
     background-color: LightGray;
+}
+
+.won {
+    display: none;
 }

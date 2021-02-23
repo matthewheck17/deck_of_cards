@@ -55,15 +55,15 @@ class WarCard extends React.Component{
     var largeSuit;
 
     // assign card red suit
-    if (this.state.suit === "heart") {
+    if (this.state.suit === "Hearts") {
       topLeftSuit = <img src={RedHeartCorner} alt="suit of hearts" id="top-left-suit" draggable={false}/>;
       bottomRightSuit = <img src={RedHeartCorner} alt="suit of hearts" id="bottom-right-suit" draggable={false}/>;
       largeSuit = <img src={RedHeartLarge} alt="large heart" id="large-suit" draggable={false}/>
-    } else if (this.state.suit === "diamond") {
+    } else if (this.state.suit === "Diamonds") {
       topLeftSuit = <img src={RedDiamondCorner} alt="suit of diamonds" id="top-left-suit" draggable={false}/>;
       bottomRightSuit = <img src={RedDiamondCorner} alt="suit of diamonds" id="bottom-right-suit" draggable={false}/>;
       largeSuit = <img src={RedDiamondLarge} alt="large heart" id="large-suit" draggable={false}/>
-    } else if (this.state.suit === "spade") {
+    } else if (this.state.suit === "Spades") {
         topLeftSuit = <img src={BlackSpadeCorner} alt="suit of spades" id="top-left-suit" draggable={false}/>;
         bottomRightSuit = <img src={BlackSpadeCorner} alt="suit of spades" id="bottom-right-suit" draggable={false}/>;
         largeSuit = <img src={BlackSpadeLarge} alt="large heart" id="large-suit" draggable={false}/>
@@ -75,7 +75,7 @@ class WarCard extends React.Component{
 
     // assign card value based on props
     switch (this.state.value) {
-      case "A":
+      case "Ace":
         topLeftValue = <p className={this.state.suit} id="top-left-value">A</p>;
         bottomRightValue = <p className={this.state.suit} id="bottom-right-value">A</p>;
         break;

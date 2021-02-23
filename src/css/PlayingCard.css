@@ -61,8 +61,9 @@ Created before CIS 482 */
 
 #large-suit {
   position: absolute;
-  top: 31%;
-  left: 23%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   pointer-events: none;
 }
 
@@ -79,19 +80,19 @@ Created before CIS 482 */
   user-select: none;
 }
 
-.diamond {
+.Diamonds {
   color: red;
 }
 
-.heart {
+.Hearts {
   color: red;
 }
 
-.spade {
+.Spades {
   color: black;
 }
 
-.club {
+.Clubs {
   color: black;
 }
 

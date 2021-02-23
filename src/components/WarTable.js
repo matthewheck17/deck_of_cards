@@ -16,10 +16,10 @@ class WarTable extends React.Component {
   constructor(props) {
     super(props)
     var allCards = [
-      ["club","A"],["club","2"],["club","3"],["club","4"],["club","5"],["club","6"],["club","7"],["club","8"],["club","9"],["club","10"],["club","Jack"],["club","Queen"],["club","King"],
-      ["diamond","A"],["diamond","2"],["diamond","3"],["diamond","4"],["diamond","5"],["diamond","6"],["diamond","7"],["diamond","8"],["diamond","9"],["diamond","10"],["diamond","Jack"],["diamond","Queen"],["diamond","King"],
-      ["spade","A"],["spade","2"],["spade","3"],["spade","4"],["spade","5"],["spade","6"],["spade","7"],["spade","8"],["spade","9"],["spade","10"],["spade","Jack"],["spade","Queen"],["spade","King"],
-      ["heart","A"],["heart","2"],["heart","3"],["heart","4"],["heart","5"],["heart","6"],["heart","7"],["heart","8"],["heart","9"],["heart","10"],["heart","Jack"],["heart","Queen"],["heart","King"]
+      ["Clubs","Ace"],["Clubs","2"],["Clubs","3"],["Clubs","4"],["Clubs","5"],["Clubs","6"],["Clubs","7"],["Clubs","8"],["Clubs","9"],["Clubs","10"],["Clubs","Jack"],["Clubs","Queen"],["Clubs","King"],
+      ["Diamonds","Ace"],["Diamonds","2"],["Diamonds","3"],["Diamonds","4"],["Diamonds","5"],["Diamonds","6"],["Diamonds","7"],["Diamonds","8"],["Diamonds","9"],["Diamonds","10"],["Diamonds","Jack"],["Diamonds","Queen"],["Diamonds","King"],
+      ["Spades","Ace"],["Spades","2"],["Spades","3"],["Spades","4"],["Spades","5"],["Spades","6"],["Spades","7"],["Spades","8"],["Spades","9"],["Spades","10"],["Spades","Jack"],["Spades","Queen"],["Spades","King"],
+      ["Hearts","Ace"],["Hearts","2"],["Hearts","3"],["Hearts","4"],["Hearts","5"],["Hearts","6"],["Hearts","7"],["Hearts","8"],["Hearts","9"],["Hearts","10"],["Hearts","Jack"],["Hearts","Queen"],["Hearts","King"]
     ];
     var deck1 = [];
     var deck2 = [];
