@@ -459,7 +459,6 @@ class HeartsTable extends React.Component {
       userCardPlayed: true,
       leadSuit: leadSuit
     });
-    console.log(this.state.leadSuit);
   }
 
   // This is a function that takes the slot number and the handID of a given card and causes the cards outside of it to shift inwards
@@ -500,7 +499,6 @@ class HeartsTable extends React.Component {
   // This function handles any given player's turn
   // while a round is still in progress calls itself once the turn before is completed
   playTurn = () => {
-    console.log(this.state.leadSuit);
     let updatedGamePhase = this.state.gamePhase;
     let updatedCardSlots = this.state.cardSlots;
     let updatedUpside = this.state.upside;
@@ -714,10 +712,6 @@ class HeartsTable extends React.Component {
   //This function handles the end of the round, determining the winner and preparing for the next round and causes the win message to appear
   endRound() {
     let playedCardIndices = this.getPlayedCards();
-    console.log(this.state.allHands[playedCardIndices[0]]);
-    console.log(this.state.allHands[playedCardIndices[1]]);
-    console.log(this.state.allHands[playedCardIndices[2]]);
-    console.log(this.state.allHands[playedCardIndices[3]]);
     let eligibleWinners = []; //this will be an array to hold cards that can win the round (ie cards that followed the lead suit)
     for (let i = 0; i<playedCardIndices.length; i++){
       if (this.state.allHands[playedCardIndices[i]][SUIT] === this.state.leadSuit){ //check each card to see if it followed suit
@@ -737,6 +731,7 @@ class HeartsTable extends React.Component {
 
     let roundWinningPlayer = parseInt(this.state.handID[highestCardIndex].substr(-1)); //get the index of the player who won the trick
 
+    //set the round-end message
     document.getElementById("round-end-message").innerHTML = "Player " + roundWinningPlayer + " won the trick with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
     if (this.state.completedRounds === 0){
       setTimeout(()=> {

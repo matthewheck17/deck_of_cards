@@ -40,19 +40,19 @@ exports[`CYCLE 1 TESTS US 1.1 - Testing that the Hearts Table component renders 
       />
     </div>
     <div
-      class="player-hand"
+      class="player-hand inactive"
       id="player1-hand"
     />
     <div
-      class="player-hand"
+      class="player-hand inactive"
       id="player2-hand"
     />
     <div
-      class="player-hand"
+      class="player-hand inactive"
       id="player3-hand"
     />
     <div
-      class="player-hand"
+      class="player-hand inactive"
       id="player4-hand"
     />
     <div
