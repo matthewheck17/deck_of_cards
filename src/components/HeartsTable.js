@@ -767,8 +767,23 @@ class HeartsTable extends React.Component {
 
     let roundWinningPlayer = parseInt(this.state.handID[highestCardIndex].substr(-1)); //get the index of the player who won the trick
 
+    let roundWinningName = "";
+    switch (roundWinningPlayer){
+      case 1:
+        roundWinningName="You";
+        break;
+      case 2:
+        roundWinningName=this.state.opp1Name;
+        break;
+      case 3:
+        roundWinningName=this.state.opp2Name;
+        break;
+      case 4:
+        roundWinningName=this.state.opp3Name;
+        break;
+    } 
     //set the round-end message
-    document.getElementById("round-end-message").innerHTML = "Player " + roundWinningPlayer + " won the trick with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
+    document.getElementById("round-end-message").innerHTML = roundWinningName + " won the trick with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
     if (this.state.completedRounds < 2){// perform 3 rounds only at this point
       setTimeout(()=> {
         document.getElementById("round-end-message").innerHTML = "";
