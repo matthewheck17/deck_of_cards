@@ -37,11 +37,12 @@ class HeartsTable extends React.Component {
     // array holding all opponents
     let allOpponents = ["Jimmy", "Tommy", "Henry", "Tobey", "Vito", "Michael", "Sonny", "Fredo", "Tobey", "Shaggy", "Lancelot", "Arthur", "Terry", "Donny", "The Dude", "Walter", "Gandalf", "Steve", "Tom", "Jerry", "Kenobi", "Sheev", "Matthew"];
 
-    let opponentNames = [];
+    let playerNames = [];
+    playerNames.push("You");
     let computerPlayersCount = PLAYERCOUNT - 1;
     for (let index = 0; index< computerPlayersCount; index++){
       let rand = Math.floor(Math.random()*allOpponents.length);
-      opponentNames.push(allOpponents[rand]);
+      playerNames.push(allOpponents[rand]);
       allOpponents.splice(rand, 1);
     }
 
@@ -137,9 +138,7 @@ class HeartsTable extends React.Component {
       hand2: hand2,
       hand3: hand3,
       hand4: hand4,
-      opp1Name: opponentNames[0],
-      opp2Name: opponentNames[1],
-      opp3Name: opponentNames[2],
+      playerNames: playerNames,
       allHands: allHands,
       cardStatus: cardStatus,
       handID: handID,
@@ -759,7 +758,7 @@ class HeartsTable extends React.Component {
     let highestCardValue = 0;
 
     for (let index = 0; index<eligibleWinners.length; index++){
-      if (this.state.allHands[eligibleWinners[index]][COMP] > highestCardValue){ //check each card to see if it followed suit
+      if (this.state.allHands[eligibleWinners[index]][COMP] > highestCardValue){ //check each card to find biggest value
         highestCardIndex = eligibleWinners[index];
         highestCardValue = this.state.allHands[eligibleWinners[index]][COMP];
       }
@@ -767,23 +766,7 @@ class HeartsTable extends React.Component {
 
     let roundWinningPlayer = parseInt(this.state.handID[highestCardIndex].substr(-1)); //get the index of the player who won the trick
 
-    let roundWinningName = "";
-    switch (roundWinningPlayer){
-      case 1:
-        roundWinningName="You";
-        break;
-      case 2:
-        roundWinningName=this.state.opp1Name;
-        break;
-      case 3:
-        roundWinningName=this.state.opp2Name;
-        break;
-      case 4:
-        roundWinningName=this.state.opp3Name;
-        break;
-      default:
-        //do nothing
-    } 
+    let roundWinningName = this.state.playerNames[roundWinningPlayer-1];
     //set the round-end message
     document.getElementById("round-end-message").innerHTML = roundWinningName + " won the trick with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
     if (this.state.completedRounds < 2){// perform 3 rounds only at this point
@@ -851,10 +834,10 @@ class HeartsTable extends React.Component {
           <div>
             {this.renderCards()}
             <LeadChip key={"lead-chip"} location={this.state.startedRoundPlayer} />
-            <Scorecard key={"p1-scorecard"} playerID={"1"} name={"You"} trickCount={this.state.scoretracker[PLAYER1][TRICKS]} heartsCount={this.state.scoretracker[PLAYER1][HEARTS]}/>
-            <Scorecard key={"p2-scorecard"} playerID={"2"} name={this.state.opp1Name} trickCount={this.state.scoretracker[PLAYER2][TRICKS]} heartsCount={this.state.scoretracker[PLAYER2][HEARTS]}/>
-            <Scorecard key={"p3-scorecard"} playerID={"3"} name={this.state.opp2Name} trickCount={this.state.scoretracker[PLAYER3][TRICKS]} heartsCount={this.state.scoretracker[PLAYER3][HEARTS]}/>
-            <Scorecard key={"p4-scorecard"} playerID={"4"} name={this.state.opp3Name} trickCount={this.state.scoretracker[PLAYER4][TRICKS]} heartsCount={this.state.scoretracker[PLAYER4][HEARTS]}/>
+            <Scorecard key={"p1-scorecard"} playerID={"1"} name={this.state.playerNames[PLAYER2]} trickCount={this.state.scoretracker[PLAYER1][TRICKS]} heartsCount={this.state.scoretracker[PLAYER1][HEARTS]}/>
+            <Scorecard key={"p2-scorecard"} playerID={"2"} name={this.state.playerNames[PLAYER2]} trickCount={this.state.scoretracker[PLAYER2][TRICKS]} heartsCount={this.state.scoretracker[PLAYER2][HEARTS]}/>
+            <Scorecard key={"p3-scorecard"} playerID={"3"} name={this.state.playerNames[PLAYER3]} trickCount={this.state.scoretracker[PLAYER3][TRICKS]} heartsCount={this.state.scoretracker[PLAYER3][HEARTS]}/>
+            <Scorecard key={"p4-scorecard"} playerID={"4"} name={this.state.playerNames[PLAYER4]} trickCount={this.state.scoretracker[PLAYER4][TRICKS]} heartsCount={this.state.scoretracker[PLAYER4][HEARTS]}/>
             <div id="pass-instructions" className="visible">Choose two cards to pass to your opponent... </div>
             <div id="round-end-message"></div>
           </div>
