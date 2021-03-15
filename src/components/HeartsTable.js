@@ -850,7 +850,6 @@ class HeartsTable extends React.Component {
         {this.state.menu === "notShowing" &&
           <div>
             {this.renderCards()}
-            {console.log(this.state.scoretracker[PLAYER1][TRICKS])}
             <LeadChip key={"lead-chip"} location={this.state.startedRoundPlayer} />
             <Scorecard key={"p1-scorecard"} playerID={"1"} name={"You"} trickCount={this.state.scoretracker[PLAYER1][TRICKS]} heartsCount={this.state.scoretracker[PLAYER1][HEARTS]}/>
             <Scorecard key={"p2-scorecard"} playerID={"2"} name={this.state.opp1Name} trickCount={this.state.scoretracker[PLAYER2][TRICKS]} heartsCount={this.state.scoretracker[PLAYER2][HEARTS]}/>
