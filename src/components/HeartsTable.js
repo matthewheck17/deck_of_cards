@@ -781,6 +781,8 @@ class HeartsTable extends React.Component {
       case 4:
         roundWinningName=this.state.opp3Name;
         break;
+      default:
+        //do nothing
     } 
     //set the round-end message
     document.getElementById("round-end-message").innerHTML = roundWinningName + " won the trick with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
