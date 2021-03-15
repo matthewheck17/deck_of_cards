@@ -38,12 +38,12 @@ class HeartsTable extends React.Component {
     let allOpponents = ["Jimmy", "Tommy", "Henry", "Tobey", "Vito", "Michael", "Sonny", "Fredo", "Tobey", "Shaggy", "Lancelot", "Arthur", "Terry", "Donny", "The Dude", "Walter", "Gandalf", "Steve", "Tom", "Jerry", "Kenobi", "Sheev", "Matthew"];
 
     let playerNames = [];
-    playerNames.push("You");
+    playerNames.push("You"); //add user name to array
     let computerPlayersCount = PLAYERCOUNT - 1;
     for (let index = 0; index< computerPlayersCount; index++){
       let rand = Math.floor(Math.random()*allOpponents.length);
-      playerNames.push(allOpponents[rand]);
-      allOpponents.splice(rand, 1);
+      playerNames.push(allOpponents[rand]); //add random name for each cpu
+      allOpponents.splice(rand, 1);  //remove chosen name from array
     }
 
 
@@ -778,7 +778,6 @@ class HeartsTable extends React.Component {
         updatedActiveHand[roundWinningPlayer-1] = "active";
         let updatedScoretracker = this.state.scoretracker;
         updatedScoretracker[roundWinningPlayer-1][TRICKS]++;
-        console.log(updatedScoretracker[PLAYER1][TRICKS]);
         updatedScoretracker[roundWinningPlayer-1][HEARTS] += heartsPlayed;
         for (let index = 0; index<playedCardIndices.length; index++){ //update the slot and hand of the played cards to remove them from players' hands and from the center of the table
           updatedCardSlots[playedCardIndices[index]] = "won";
@@ -834,7 +833,7 @@ class HeartsTable extends React.Component {
           <div>
             {this.renderCards()}
             <LeadChip key={"lead-chip"} location={this.state.startedRoundPlayer} />
-            <Scorecard key={"p1-scorecard"} playerID={"1"} name={this.state.playerNames[PLAYER2]} trickCount={this.state.scoretracker[PLAYER1][TRICKS]} heartsCount={this.state.scoretracker[PLAYER1][HEARTS]}/>
+            <Scorecard key={"p1-scorecard"} playerID={"1"} name={this.state.playerNames[PLAYER1]} trickCount={this.state.scoretracker[PLAYER1][TRICKS]} heartsCount={this.state.scoretracker[PLAYER1][HEARTS]}/>
             <Scorecard key={"p2-scorecard"} playerID={"2"} name={this.state.playerNames[PLAYER2]} trickCount={this.state.scoretracker[PLAYER2][TRICKS]} heartsCount={this.state.scoretracker[PLAYER2][HEARTS]}/>
             <Scorecard key={"p3-scorecard"} playerID={"3"} name={this.state.playerNames[PLAYER3]} trickCount={this.state.scoretracker[PLAYER3][TRICKS]} heartsCount={this.state.scoretracker[PLAYER3][HEARTS]}/>
             <Scorecard key={"p4-scorecard"} playerID={"4"} name={this.state.playerNames[PLAYER4]} trickCount={this.state.scoretracker[PLAYER4][TRICKS]} heartsCount={this.state.scoretracker[PLAYER4][HEARTS]}/>
