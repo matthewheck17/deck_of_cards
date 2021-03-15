@@ -2,7 +2,7 @@
 
 // This file contains all necessary items for the LeadChip Component
 
-// Created in US 1 - Updated in US 6
+// Created in US 6
 
 // SYSTEM IMPORTS
 import React from "react";

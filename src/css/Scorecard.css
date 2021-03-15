@@ -1,0 +1,73 @@
+.scorecard {
+    height: 100px;
+    width: 150px;
+    background: #fff;
+    position: absolute;
+    border-radius: 5px;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    z-index: 20;
+    white-space: nowrap;
+}
+
+.scorecard p {
+    padding: 8px;
+    margin: 0;
+    border-left: 1px solid #141414;
+    border-right: 1px solid #141414;
+}
+
+.scorecard p:last-child {
+    padding: 8px;
+    margin: 0;
+    border-bottom: 1px solid #141414;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.p1 {
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%);
+    margin-left: 400px;
+}
+
+.p2 {
+    bottom: 20px;
+    left: 20px;
+}
+
+.p3 {
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+    margin-left: -400px;
+}
+
+.p4 {
+    top: 20px;
+    right: 20px;
+}
+
+.playerName {
+    background:#2974ae;
+    color: #fff;
+    margin: 0px;
+    padding: 6px;
+}
+
+@media (max-width: 1000px) {
+    .p1 {
+        bottom: 20px;
+        right: 20px;
+        transform: none;
+        margin-left: 0;
+        left: unset;
+    }
+
+    .p3 {
+        top: 20px;
+        left: 20px;
+        transform: none;
+        margin-left: 0;
+    }
+}
