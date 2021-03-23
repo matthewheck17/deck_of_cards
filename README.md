@@ -13,6 +13,11 @@ Access to the current progression of the application can be seen in the website 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## User Manual
+
+https://www.youtube.com/watch?v=ic4dR1dg3AM
+
+
 ## Available Scripts
 
 In the project directory, you can run:
