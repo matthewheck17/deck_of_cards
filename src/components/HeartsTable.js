@@ -33,6 +33,8 @@ const PLAYER2TURN = 2;
 const PLAYER3TURN = 3;
 const PLAYER4TURN = 4;
 const MAXSCORE = 26;
+const MAXTRICKS = 13;
+const SHOTTHESUN = 52;
 
 class HeartsTable extends React.Component {
 
@@ -813,6 +815,23 @@ class HeartsTable extends React.Component {
         let updatedScoretracker = this.state.scoretracker;
         updatedScoretracker[roundWinningPlayer-1][TRICKS]++;
         updatedScoretracker[roundWinningPlayer-1][HEARTS] += heartsPlayed;
+        for (let index1 = 0; index1<updatedScoretracker.length; index1++){
+          if (updatedScoretracker[index1][HEARTS] === MAXSCORE) { // that means this player shot the moon
+            if (updatedScoretracker[index1][TRICKS] === MAXTRICKS){ //if all tricks that means the player also shot the sun
+              for (let index2 = 0; index2<updatedScoretracker.length; index2++){
+                if (index2 !== index1){
+                  updatedScoretracker[index2][HEARTS] = SHOTTHESUN; //give every other player the max score
+                }
+              }
+            } else { //just shot the moon
+              for (let index2 = 0; index2<updatedScoretracker.length; index2++){
+                if (index2 !== index1){
+                  updatedScoretracker[index2][HEARTS] = MAXSCORE; //give every other player the max score
+                }
+              }
+            }
+          }
+        }
         for (let index = 0; index<playedCardIndices.length; index++){ //update the slot and hand of the played cards to remove them from players' hands and from the center of the table
           updatedCardSlots[playedCardIndices[index]] = "won";
           updatedHandID[playedCardIndices[index]] = "won";
@@ -861,7 +880,7 @@ class HeartsTable extends React.Component {
         <div id="pass-button" className="action-button" onClick={this.passCards}>Pass Cards</div>
         <div id="play-button" className="action-button" onClick={this.playCard}>Play Card</div>
 
-        {this.state.menu === "notShowing" &&
+        {this.state.menu === "notShowing" && !this.state.gameOver &&
           <div>
             {this.renderCards()}
             <LeadChip key={"lead-chip"} location={this.state.startedRoundPlayer} />
@@ -871,6 +890,18 @@ class HeartsTable extends React.Component {
             <Scorecard key={"p4-scorecard"} playerID={"4"} name={this.state.playerNames[PLAYER4]} trickCount={this.state.scoretracker[PLAYER4][TRICKS]} heartsCount={this.state.scoretracker[PLAYER4][HEARTS]}/>
             <div id="pass-instructions" className="visible">Choose two cards to pass to your opponent... </div>
             <div id="round-end-message"></div>
+          </div>
+        }
+
+        {this.state.gameOver &&
+          <div id="final-score-container">
+            <div id="final-score">
+              <h2 id="final-score-header">Final Score</h2>
+              <p className="player-final-score">{this.state.playerNames[PLAYER1]}: {this.state.scoretracker[PLAYER1][HEARTS]}</p>
+              <p className="player-final-score">{this.state.playerNames[PLAYER2]}: {this.state.scoretracker[PLAYER2][HEARTS]}</p>
+              <p className="player-final-score">{this.state.playerNames[PLAYER3]}: {this.state.scoretracker[PLAYER3][HEARTS]}</p>
+              <p className="player-final-score">{this.state.playerNames[PLAYER4]}: {this.state.scoretracker[PLAYER4][HEARTS]}</p>
+            </div>
           </div>
         }
       </div>
