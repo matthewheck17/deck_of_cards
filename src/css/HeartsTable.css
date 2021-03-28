@@ -188,3 +188,33 @@ Created in US 1 */
 .won {
     display: none;
 }
+#final-score-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 999;
+}
+
+#final-score {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Andale Mono", AndaleMono, monospace;
+    background: white;
+    color: black;
+}
+
+#final-score-header {
+    font-size: 45px;
+    padding: 20px 40px;
+    margin: 0;
+    background: #2974ae;
+    color: white;
+}
+
+.player-final-score {
+    font-size: 10px;
+}
