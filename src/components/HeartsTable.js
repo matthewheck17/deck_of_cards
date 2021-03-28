@@ -28,6 +28,11 @@ const PLAYER4 = 3;
 const TRICKS = 0;
 const HEARTS = 1;
 const QUEENOFSPADES = 13;
+const PLAYERINDEX = 4;
+const PLAYER2TURN = 2;
+const PLAYER3TURN = 3;
+const PLAYER4TURN = 4;
+const MAXSCORE = 26;
 
 class HeartsTable extends React.Component {
 
@@ -35,7 +40,7 @@ class HeartsTable extends React.Component {
     super(props)
 
     // array holding all opponents
-    let allOpponents = ["Jimmy", "Tommy", "Henry", "Tobey", "Vito", "Michael", "Sonny", "Fredo", "Tobey", "Shaggy", "Lancelot", "Arthur", "Terry", "Donny", "The Dude", "Walter", "Gandalf", "Steve", "Tom", "Jerry", "Kenobi", "Sheev", "Matthew"];
+    let allOpponents = ["Jimmy", "Tommy", "Henry", "Tobey", "Vito", "Michael", "Sonny", "Fredo", "Tobey", "Shaggy", "Lancelot", "Arthur", "Terry", "Donny", "The Dude", "Walter", "Gandalf", "Steve", "Tom", "Jerry", "Kenobi", "Sheev", "Matthew", "James"];
 
     let playerNames = [];
     playerNames.push("You"); //add user name to array
@@ -157,7 +162,8 @@ class HeartsTable extends React.Component {
       userCardPlayed: false, //keep track of if the user has played this round yet
       activeHand: activeHand, //keep track of which hand is up to play so that the border can be highlighted accordingly
       heartsBroken: false, //keep track if hearts has been broken yet
-      scoretracker: [[0,0], [0,0], [0,0], [0,0]] //array to keep track of each player's score
+      scoretracker: [[0,0], [0,0], [0,0], [0,0]], //array to keep track of each player's score
+      gameOver: false
     }
     this.handleCardClick = this.handleCardClick.bind(this);
     this.playCard = this.playCard.bind(this);
@@ -354,12 +360,12 @@ class HeartsTable extends React.Component {
       updatedHandID[cpuSelect1] = hand;
       updatedHandID[cpuSelect2] = hand;
       for (let index = cardIDIncrement; index < cpuSelect1; index++){
-        let slot = updatedCardSlots[index].substring(4);
+        let slot = updatedCardSlots[index].substring(PLAYERINDEX);
         slot = parseInt(slot) + 1;
         updatedCardSlots[index] = "card" + slot;
       }
       for (let index = cardIDIncrement; index < cpuSelect2; index++){
-        let slot = updatedCardSlots[index].substring(4);
+        let slot = updatedCardSlots[index].substring(PLAYERINDEX);
         slot = parseInt(slot) + 1;
         updatedCardSlots[index] = "card" + slot;
       }
@@ -389,7 +395,9 @@ class HeartsTable extends React.Component {
     let updatedCardSlots = this.state.cardSlots; // create array to hold updated card slots
     let updatedUpside = this.state.upside; // create array to hold updated card slots
     let selectedCard = playableCardIndices[Math.floor(Math.random() * Math.floor(playableCardIndices.length))]; //get random index from playable cards
-    this.shiftCardsToCenter(this.state.cardSlots[selectedCard].substring(4), playerID); //pass the slot number of the selected card
+    if (this.state.completedRounds < (HANDSIZE-1)){ //dont need to compress if it is the last round
+      this.shiftCardsToCenter(this.state.cardSlots[selectedCard].substring(PLAYERINDEX), playerID); //pass the slot number of the selected card
+    }
     updatedUpside[selectedCard] = "front";
     let playedSuit = this.state.allHands[selectedCard][SUIT];
 
@@ -475,7 +483,7 @@ class HeartsTable extends React.Component {
       newSlot += " fourth-played";
     }
 
-    this.shiftCardsToCenter(this.state.cardSlots[selectedCard].substring(4), "hand1"); //pass the slot number of the selected card
+    this.shiftCardsToCenter(this.state.cardSlots[selectedCard].substring(PLAYERINDEX), "hand1"); //pass the slot number of the selected card
 
     updatedCardSlots[selectedCard] = newSlot; //mark selected card as played
 
@@ -498,8 +506,8 @@ class HeartsTable extends React.Component {
 
     if (slotNumber < Math.ceil(HANDSIZE/2)){ //if selected card is left of center
       for (let index = 0; index < handCardIndices.length; index++){
-        if (parseInt(updatedCardSlots[handCardIndices[index]].substring(4)) < slotNumber){ //check if slot is less than selected card
-          let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(4);
+        if (parseInt(updatedCardSlots[handCardIndices[index]].substring(PLAYERINDEX)) < slotNumber){ //check if slot is less than selected card
+          let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(PLAYERINDEX);
           let newSlot = parseInt(oldSlotNumber) + 1;
           newSlot = "card" + newSlot; //increment slot
           updatedCardSlots[handCardIndices[index]] = newSlot; 
@@ -507,8 +515,8 @@ class HeartsTable extends React.Component {
       }
     } else {
       for (let index = 0; index < handCardIndices.length; index++){
-        if (parseInt(updatedCardSlots[handCardIndices[index]].substring(4)) > slotNumber){ //check if slot is less than selected card
-          let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(4);
+        if (parseInt(updatedCardSlots[handCardIndices[index]].substring(PLAYERINDEX)) > slotNumber){ //check if slot is less than selected card
+          let oldSlotNumber = updatedCardSlots[handCardIndices[index]].substring(PLAYERINDEX);
           let newSlot = parseInt(oldSlotNumber) - 1;
           newSlot = "card" + newSlot;//decriment slot
           updatedCardSlots[handCardIndices[index]] = newSlot; 
@@ -553,7 +561,7 @@ class HeartsTable extends React.Component {
         }
         this.removeUnplayable();
       } else {
-        this.shiftCardsToCenter(this.state.cardSlots[twoOfClubsIndex].substring(4), "hand"+startedRoundPlayer); //if a computer player has it, it needs to shift cards
+        this.shiftCardsToCenter(this.state.cardSlots[twoOfClubsIndex].substring(PLAYERINDEX), "hand"+startedRoundPlayer); //if a computer player has it, it needs to shift cards
       }
       nextPlayer = parseInt(startedRoundPlayer)%PLAYERCOUNT+1; //get the next player up
       updatedCardSlots[twoOfClubsIndex] = "played";
@@ -573,14 +581,14 @@ class HeartsTable extends React.Component {
           return;
         }
         this.removeUnplayable();
-      } else if (this.state.playerTurn === 2){
-        playableCardIndices = this.getPlayableCards(2, this.state.leadSuit);
+      } else if (this.state.playerTurn === PLAYER2TURN){
+        playableCardIndices = this.getPlayableCards(PLAYER2TURN, this.state.leadSuit);
         playedSuit = this.playCPUCards(playableCardIndices, "hand2");
-      } else if (this.state.playerTurn === 3){
-        playableCardIndices = this.getPlayableCards(3, this.state.leadSuit);
+      } else if (this.state.playerTurn === PLAYER3TURN){
+        playableCardIndices = this.getPlayableCards(PLAYER3TURN, this.state.leadSuit);
         playedSuit = this.playCPUCards(playableCardIndices, "hand3");
-      } else if (this.state.playerTurn === 4){
-        playableCardIndices = this.getPlayableCards(4, this.state.leadSuit);
+      } else if (this.state.playerTurn === PLAYER4TURN){
+        playableCardIndices = this.getPlayableCards(PLAYER4TURN, this.state.leadSuit);
         playedSuit = this.playCPUCards(playableCardIndices, "hand4");
       }
       nextPlayer = this.state.playerTurn%PLAYERCOUNT +1;
@@ -769,7 +777,7 @@ class HeartsTable extends React.Component {
     let roundWinningName = this.state.playerNames[roundWinningPlayer-1];
     //set the round-end message
     document.getElementById("round-end-message").innerHTML = roundWinningName + " won the trick with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
-    if (this.state.completedRounds < 2){// perform 3 rounds only at this point
+    if (this.state.completedRounds < HANDSIZE-1){ //continue if not the 13th round yet
       setTimeout(()=> {
         document.getElementById("round-end-message").innerHTML = "";
         let updatedCardSlots = this.state.cardSlots;
@@ -796,6 +804,30 @@ class HeartsTable extends React.Component {
         },
           this.playTurn //callback function, will run when state is set
         )
+      }, 1500);
+    } else {
+      setTimeout(()=> {
+        document.getElementById("round-end-message").innerHTML = "";
+        let updatedCardSlots = this.state.cardSlots;
+        let updatedHandID = this.state.handID;
+        let updatedScoretracker = this.state.scoretracker;
+        updatedScoretracker[roundWinningPlayer-1][TRICKS]++;
+        updatedScoretracker[roundWinningPlayer-1][HEARTS] += heartsPlayed;
+        for (let index = 0; index<playedCardIndices.length; index++){ //update the slot and hand of the played cards to remove them from players' hands and from the center of the table
+          updatedCardSlots[playedCardIndices[index]] = "won";
+          updatedHandID[playedCardIndices[index]] = "won";
+        }
+        this.setState({
+          cardSlots: updatedCardSlots,
+          handid: updatedHandID,
+          playerTurn: null,
+          startedRoundPlayer: null,
+          activeHand: ["inactive","inactive","inactive","inactive"],
+          leadSuit: null,
+          userCardPlayed: false,
+          scoretracker: updatedScoretracker,
+          gameOver: true
+        })
       }, 1500);
     }
     return;
