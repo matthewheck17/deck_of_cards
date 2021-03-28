@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/deck_of_cards/static/css/main.303a2155.chunk.css",
-    "main.js": "/deck_of_cards/static/js/main.21296921.chunk.js",
-    "main.js.map": "/deck_of_cards/static/js/main.21296921.chunk.js.map",
+    "main.css": "/deck_of_cards/static/css/main.cc1de3f5.chunk.css",
+    "main.js": "/deck_of_cards/static/js/main.3df51dbd.chunk.js",
+    "main.js.map": "/deck_of_cards/static/js/main.3df51dbd.chunk.js.map",
     "runtime-main.js": "/deck_of_cards/static/js/runtime-main.873f9d79.js",
     "runtime-main.js.map": "/deck_of_cards/static/js/runtime-main.873f9d79.js.map",
     "static/js/2.26957388.chunk.js": "/deck_of_cards/static/js/2.26957388.chunk.js",
     "static/js/2.26957388.chunk.js.map": "/deck_of_cards/static/js/2.26957388.chunk.js.map",
     "index.html": "/deck_of_cards/index.html",
-    "precache-manifest.0ab81e3accd9ba69565bef3e19d7c462.js": "/deck_of_cards/precache-manifest.0ab81e3accd9ba69565bef3e19d7c462.js",
+    "precache-manifest.19e74b6797e643cb9aac6e047b92fd34.js": "/deck_of_cards/precache-manifest.19e74b6797e643cb9aac6e047b92fd34.js",
     "service-worker.js": "/deck_of_cards/service-worker.js",
-    "static/css/main.303a2155.chunk.css.map": "/deck_of_cards/static/css/main.303a2155.chunk.css.map",
+    "static/css/main.cc1de3f5.chunk.css.map": "/deck_of_cards/static/css/main.cc1de3f5.chunk.css.map",
     "static/js/2.26957388.chunk.js.LICENSE.txt": "/deck_of_cards/static/js/2.26957388.chunk.js.LICENSE.txt",
     "static/media/flavortown.PNG": "/deck_of_cards/static/media/flavortown.514b6d40.PNG",
     "static/media/lead-chip.png": "/deck_of_cards/static/media/lead-chip.24bcf6ca.png",
@@ -25,7 +25,7 @@
   "entrypoints": [
     "static/js/runtime-main.873f9d79.js",
     "static/js/2.26957388.chunk.js",
-    "static/css/main.303a2155.chunk.css",
-    "static/js/main.21296921.chunk.js"
+    "static/css/main.cc1de3f5.chunk.css",
+    "static/js/main.3df51dbd.chunk.js"
   ]
 }
