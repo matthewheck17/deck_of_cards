@@ -830,6 +830,7 @@ class HeartsTable extends React.Component {
                 }
               }
             }
+            updatedScoretracker[index1][HEARTS] = 0;
           }
         }
         for (let index = 0; index<playedCardIndices.length; index++){ //update the slot and hand of the played cards to remove them from players' hands and from the center of the table
