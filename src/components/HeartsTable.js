@@ -815,8 +815,9 @@ class HeartsTable extends React.Component {
         let updatedScoretracker = this.state.scoretracker;
         updatedScoretracker[roundWinningPlayer-1][TRICKS]++;
         updatedScoretracker[roundWinningPlayer-1][HEARTS] += heartsPlayed;
+        let found = false;
         for (let index1 = 0; index1<updatedScoretracker.length; index1++){
-          if (updatedScoretracker[index1][HEARTS] === MAXSCORE) { // that means this player shot the moon
+          if (updatedScoretracker[index1][HEARTS] === MAXSCORE && !found) { // that means this player shot the moon
             if (updatedScoretracker[index1][TRICKS] === MAXTRICKS){ //if all tricks that means the player also shot the sun
               for (let index2 = 0; index2<updatedScoretracker.length; index2++){
                 if (index2 !== index1){
@@ -831,6 +832,7 @@ class HeartsTable extends React.Component {
               }
             }
             updatedScoretracker[index1][HEARTS] = 0;
+            found = true;
           }
         }
         for (let index = 0; index<playedCardIndices.length; index++){ //update the slot and hand of the played cards to remove them from players' hands and from the center of the table
