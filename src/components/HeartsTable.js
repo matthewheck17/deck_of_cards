@@ -2,7 +2,7 @@
 
 // This file contains all necessary items for the HeartsTable Component
 
-// Created in US 1 - Updated in US 7
+// Created in US 1 - Updated in US 9
 
 // SYSTEM IMPORTS
 import React from "react";
@@ -757,7 +757,7 @@ class HeartsTable extends React.Component {
       }
     }
 
-    let roundWinningPlayer = parseInt(this.state.handID[highestCardIndex].substr(-1)); //get the index of the player who won the trick
+    let roundWinningPlayer = parseInt(this.state.handID[highestCardIndex].substr(-1)); //get the index of the player is currently winning the trick
     let roundWinningName = this.state.playerNames[roundWinningPlayer-1];
     let statusMessage = roundWinningName + " has it with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
     this.setState({
