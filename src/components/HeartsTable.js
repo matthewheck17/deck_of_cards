@@ -165,7 +165,8 @@ class HeartsTable extends React.Component {
       activeHand: activeHand, //keep track of which hand is up to play so that the border can be highlighted accordingly
       heartsBroken: false, //keep track if hearts has been broken yet
       scoretracker: [[0,0], [0,0], [0,0], [0,0]], //array to keep track of each player's score
-      gameOver: false
+      gameOver: false,
+      roundStatusMessage: ""
     }
     this.handleCardClick = this.handleCardClick.bind(this);
     this.playCard = this.playCard.bind(this);
@@ -572,6 +573,7 @@ class HeartsTable extends React.Component {
     } else {
       if (this.state.playerTurn === USER){
         let updatedPlayable = this.setUnplayable();
+        this.showRoundStatusMessage();
         if (!this.state.userCardPlayed){  //if user hasn't played yet
           setTimeout(()=> {
             this.setState({
@@ -582,6 +584,7 @@ class HeartsTable extends React.Component {
           }, 100);
           return;
         }
+        this.hideRoundStatusMessage();
         this.removeUnplayable();
       } else if (this.state.playerTurn === PLAYER2TURN){
         playableCardIndices = this.getPlayableCards(PLAYER2TURN, this.state.leadSuit);
@@ -728,6 +731,44 @@ class HeartsTable extends React.Component {
 
     this.setState({
       playable: updatedPlayable
+    });
+  }
+
+  //This function causes the round status message to appear
+  showRoundStatusMessage(){
+    if (this.state.playedThisRound === 0){
+      return; //nothing to show if it is the first turn of the round
+    }
+    let playedCards = this.getPlayedCards();
+    let eligibleWinners = []; //this will be an array to hold cards that can win the round (ie cards that followed the lead suit)
+    for (let index = 0; index<playedCards.length; index++){
+      if (this.state.allHands[playedCards[index]][SUIT] === this.state.leadSuit){ //check each card to see if it followed suit
+        eligibleWinners.push(playedCards[index]);
+      }
+    }
+
+    let highestCardIndex = 0;
+    let highestCardValue = 0;
+
+    for (let index = 0; index<eligibleWinners.length; index++){
+      if (this.state.allHands[eligibleWinners[index]][COMP] > highestCardValue){ //check each card to find biggest value
+        highestCardIndex = eligibleWinners[index];
+        highestCardValue = this.state.allHands[eligibleWinners[index]][COMP];
+      }
+    }
+
+    let roundWinningPlayer = parseInt(this.state.handID[highestCardIndex].substr(-1)); //get the index of the player who won the trick
+    let roundWinningName = this.state.playerNames[roundWinningPlayer-1];
+    let statusMessage = roundWinningName + " has it with the " + this.state.allHands[highestCardIndex][VALUE] + " of " + this.state.allHands[highestCardIndex][SUIT];
+    this.setState({
+      roundStatusMessage: statusMessage
+    });
+  }
+
+  //This function causes the round status message to disappear
+  hideRoundStatusMessage(){
+    this.setState({
+      roundStatusMessage: ""
     });
   }
 
@@ -892,6 +933,7 @@ class HeartsTable extends React.Component {
             <Scorecard key={"p3-scorecard"} playerID={"3"} name={this.state.playerNames[PLAYER3]} trickCount={this.state.scoretracker[PLAYER3][TRICKS]} heartsCount={this.state.scoretracker[PLAYER3][HEARTS]}/>
             <Scorecard key={"p4-scorecard"} playerID={"4"} name={this.state.playerNames[PLAYER4]} trickCount={this.state.scoretracker[PLAYER4][TRICKS]} heartsCount={this.state.scoretracker[PLAYER4][HEARTS]}/>
             <div id="pass-instructions" className="visible">Choose two cards to pass to your opponent... </div>
+            <div id="round-status-message">{this.state.roundStatusMessage}</div>
             <div id="round-end-message"></div>
           </div>
         }
