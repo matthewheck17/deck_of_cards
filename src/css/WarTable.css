@@ -181,3 +181,119 @@ Created before CIS 482 */
   position: relative;
   margin-top: 20%
 }
+
+#win-bunny {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 20px;
+  margin-left: -200px;
+  z-index: 99;
+  width: 200px;
+  transition: margin .5s;
+}
+
+#win-bunny.one {
+  margin-bottom: 120px;
+  margin-left: -10%;
+  transition-timing-function: ease-out;
+}
+
+#win-bunny.one.two {
+  margin-bottom: 20px;
+  margin-left: 0%;
+  transition-timing-function: ease-in;
+}
+
+#win-bunny.one.two.three {
+  margin-bottom: 120px;
+  margin-left: 10%;
+  transition-timing-function: ease-out;
+}
+
+#win-bunny.one.two.three.four {
+  margin-bottom: 20px;
+  margin-left: 20%;
+  transition-timing-function: ease-in;
+}
+
+#win-bunny.one.two.three.four.five {
+  margin-bottom: 120px;
+  margin-left: 30%;
+  transition-timing-function: ease-out;
+}
+
+#win-bunny.one.two.three.four.five.six {
+  margin-bottom: 20px;
+  margin-left: 40%;
+  transition-timing-function: ease-in;
+}
+
+#win-bunny-quote {
+  position: absolute;
+  left: calc(40% + 180px);
+  bottom: 120px;
+  width: 0;
+  z-index: 99;
+  transition-duration: .5s;
+}
+
+#duddy-1 {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  margin-left: -189px;
+  z-index: 99;
+  transition-duration: .5s;
+}
+
+#duddy-quote {
+  position: absolute;
+  bottom: 220px;
+  left: 130px;
+  width: 0;
+  z-index: 99;
+  transition-duration: .5s;
+} 
+
+#duddy-2 {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  z-index: 99;
+}
+
+#arrow {
+  display: none;
+  position: absolute;
+  bottom: 200px;
+  left: 100px;
+  width: 140px;
+  z-index: 99;
+}
+
+#arrow.shot {
+  bottom: 130px;
+  left: calc(40% + 90px);
+  transition-duration: .1s;
+}
+
+#win-bunny.one.two.three.four.five.six.spin {
+  animation-name: spin;
+  animation-duration: 100ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+  transition: 4s ease-out;
+  bottom: 0;
+  left: 200%;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
