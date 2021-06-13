@@ -1,27 +1,47 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4ad56fffe1cf8d47e6ede72f4ed4ac4a",
+    "revision": "8ded007f9308d48911b066e49a4905dc",
     "url": "/deck_of_cards/index.html"
   },
   {
-    "revision": "3e18a8880bc4d20e34df",
-    "url": "/deck_of_cards/static/css/main.b408b12c.chunk.css"
+    "revision": "f788394aae089a6b3ac5",
+    "url": "/deck_of_cards/static/css/main.9750fccd.chunk.css"
   },
   {
-    "revision": "6dabf0503f3c2dbf3a2f",
-    "url": "/deck_of_cards/static/js/2.26957388.chunk.js"
+    "revision": "09272feb5872ba2746dd",
+    "url": "/deck_of_cards/static/js/2.7d586fb6.chunk.js"
   },
   {
     "revision": "5ac48c47bb3912b14c2d8de4f56d5ae8",
-    "url": "/deck_of_cards/static/js/2.26957388.chunk.js.LICENSE.txt"
+    "url": "/deck_of_cards/static/js/2.7d586fb6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3e18a8880bc4d20e34df",
-    "url": "/deck_of_cards/static/js/main.72a9cb99.chunk.js"
+    "revision": "f788394aae089a6b3ac5",
+    "url": "/deck_of_cards/static/js/main.306b1713.chunk.js"
   },
   {
     "revision": "471a55f50a6389ce5f45",
     "url": "/deck_of_cards/static/js/runtime-main.873f9d79.js"
+  },
+  {
+    "revision": "42e834fb3ba342b92930047fc24bd875",
+    "url": "/deck_of_cards/static/media/bunny.42e834fb.png"
+  },
+  {
+    "revision": "0cf64f143aae3ea553daa6508b06a83d",
+    "url": "/deck_of_cards/static/media/bunnyQuote.0cf64f14.png"
+  },
+  {
+    "revision": "55ac8be5b44bcb7ced7da926ca7914e7",
+    "url": "/deck_of_cards/static/media/duddy1.55ac8be5.png"
+  },
+  {
+    "revision": "44255d1089ceb8b4e760088e4d7e80bc",
+    "url": "/deck_of_cards/static/media/duddy2.44255d10.png"
+  },
+  {
+    "revision": "aebe425c3f553c165cf83e9f5193f820",
+    "url": "/deck_of_cards/static/media/duddyQuote.aebe425c.PNG"
   },
   {
     "revision": "514b6d4056efbe8c0601deb2028cf30f",
@@ -36,8 +56,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/deck_of_cards/static/media/nick_cage.040c854a.PNG"
   },
   {
-    "revision": "9a7fda11fbb7510c54e424b9ac85fb23",
-    "url": "/deck_of_cards/static/media/prof1.9a7fda11.JPG"
+    "revision": "309f462c82b758a7431dfeb3a95433c1",
+    "url": "/deck_of_cards/static/media/prof1.309f462c.JPG"
   },
   {
     "revision": "120a9474de02794ff84615ca18e8eac1",
